@@ -1,33 +1,37 @@
 // To parse this JSON data, do
 //
-//     final authresponse = authresponseFromJson(jsonString);
+//     final userresponse = userresponseFromJson(jsonString);
 
 import 'dart:convert';
 
-Authresponse authresponseFromJson(String str) =>
-    Authresponse.fromJson(json.decode(str));
+Userresponse userresponseFromJson(String str) =>
+    Userresponse.fromJson(json.decode(str));
 
-String authresponseToJson(Authresponse data) => json.encode(data.toJson());
+String userresponseToJson(Userresponse data) => json.encode(data.toJson());
 
-class Authresponse {
-  Authresponse({
+class Userresponse {
+  Userresponse({
     this.body,
     this.stutus,
     this.message,
   });
 
-  Body? body;
+  List<Body>? body;
   String? stutus;
   String? message;
 
-  factory Authresponse.fromJson(Map<String, dynamic> json) => Authresponse(
-        body: json["body"] == null ? null : Body.fromJson(json["body"]),
+  factory Userresponse.fromJson(Map<String, dynamic> json) => Userresponse(
+        body: json["body"] == null
+            ? null
+            : List<Body>.from(json["body"].map((x) => Body.fromJson(x))),
         stutus: json["stutus"] == null ? null : json["stutus"],
         message: json["message"] == null ? null : json["message"],
       );
 
   Map<String, dynamic> toJson() => {
-        "body": body == null ? null : body!.toJson(),
+        "body": body == null
+            ? null
+            : List<dynamic>.from(body!.map((x) => x.toJson())),
         "stutus": stutus == null ? null : stutus,
         "message": message == null ? null : message,
       };
@@ -35,26 +39,6 @@ class Authresponse {
 
 class Body {
   Body({
-    this.jwt,
-    this.user,
-  });
-
-  String? jwt;
-  User? user;
-
-  factory Body.fromJson(Map<String, dynamic> json) => Body(
-        jwt: json["jwt"] == null ? null : json["jwt"],
-        user: json["user"] == null ? null : User.fromJson(json["user"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "jwt": jwt == null ? null : jwt,
-        "user": user == null ? null : user!.toJson(),
-      };
-}
-
-class User {
-  User({
     this.uId,
     this.fName,
     this.lName,
@@ -71,17 +55,17 @@ class User {
   String? addres;
   String? userEmail;
   String? password;
-  String? type;
+  Type? type;
   List<Bankaccount>? bankaccount;
 
-  factory User.fromJson(Map<String, dynamic> json) => User(
+  factory Body.fromJson(Map<String, dynamic> json) => Body(
         uId: json["uId"] == null ? null : json["uId"],
         fName: json["fName"] == null ? null : json["fName"],
         lName: json["lName"] == null ? null : json["lName"],
         addres: json["addres"] == null ? null : json["addres"],
         userEmail: json["userEmail"] == null ? null : json["userEmail"],
         password: json["password"] == null ? null : json["password"],
-        type: json["type"] == null ? null : json["type"],
+        type: json["type"] == null ? null : typeValues.map[json["type"]],
         bankaccount: json["bankaccount"] == null
             ? null
             : List<Bankaccount>.from(
@@ -95,7 +79,7 @@ class User {
         "addres": addres == null ? null : addres,
         "userEmail": userEmail == null ? null : userEmail,
         "password": password == null ? null : password,
-        "type": type == null ? null : type,
+        "type": type == null ? null : typeValues.reverse![type],
         "bankaccount": bankaccount == null
             ? null
             : List<dynamic>.from(bankaccount!.map((x) => x.toJson())),
@@ -153,8 +137,8 @@ class Transaction {
 
   int? tId;
   int? transacAmount;
-  String? transacDecription;
-  String? transacType;
+  TransacDecription? transacDecription;
+  TransacType? transacType;
   DateTime? transacTime;
   int? aId;
   int? sourceAccId;
@@ -166,8 +150,10 @@ class Transaction {
             json["transacAmount"] == null ? null : json["transacAmount"],
         transacDecription: json["transacDecription"] == null
             ? null
-            : json["transacDecription"],
-        transacType: json["transacType"] == null ? null : json["transacType"],
+            : transacDecriptionValues.map[json["transacDecription"]],
+        transacType: json["transacType"] == null
+            ? null
+            : transacTypeValues.map[json["transacType"]],
         transacTime: json["transacTime"] == null
             ? null
             : DateTime.parse(json["transacTime"]),
@@ -180,13 +166,53 @@ class Transaction {
   Map<String, dynamic> toJson() => {
         "tId": tId == null ? null : tId,
         "transacAmount": transacAmount == null ? null : transacAmount,
-        "transacDecription":
-            transacDecription == null ? null : transacDecription,
-        "transacType": transacType == null ? null : transacType,
+        "transacDecription": transacDecription == null
+            ? null
+            : transacDecriptionValues.reverse![transacDecription],
+        "transacType": transacType == null
+            ? null
+            : transacTypeValues.reverse![transacType],
         "transacTime":
             transacTime == null ? null : transacTime!.toIso8601String(),
         "aId": aId == null ? null : aId,
         "sourceAccId": sourceAccId == null ? null : sourceAccId,
         "destinationAccId": destinationAccId == null ? null : destinationAccId,
       };
+}
+
+enum TransacDecription {
+  WELCOME_WITHDRAW,
+  WELCOME_TRANSFER,
+  WELCOME_DEPOSITE,
+  TRANSAC_DECRIPTION_WELCOME_DEPOSITE
+}
+
+final transacDecriptionValues = EnumValues({
+  "Welcome deposite ": TransacDecription.TRANSAC_DECRIPTION_WELCOME_DEPOSITE,
+  "Welcome deposite": TransacDecription.WELCOME_DEPOSITE,
+  "Welcome transfer": TransacDecription.WELCOME_TRANSFER,
+  "Welcome withdraw": TransacDecription.WELCOME_WITHDRAW
+});
+
+enum TransacType { W, T, D }
+
+final transacTypeValues =
+    EnumValues({"d": TransacType.D, "t": TransacType.T, "w": TransacType.W});
+
+enum Type { A, C, E }
+
+final typeValues = EnumValues({"A": Type.A, "C": Type.C, "E": Type.E});
+
+class EnumValues<T> {
+  Map<String, T> map;
+  Map<T, String>? reverseMap;
+
+  EnumValues(this.map);
+
+  Map<T, String>? get reverse {
+    if (reverseMap == null) {
+      reverseMap = map.map((k, v) => new MapEntry(v, k));
+    }
+    return reverseMap;
+  }
 }

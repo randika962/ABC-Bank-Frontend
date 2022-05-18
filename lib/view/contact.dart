@@ -6,24 +6,29 @@ import 'package:signapp/userdashboard.dart';
 import 'package:signapp/employeedashboard.dart';
 import 'package:signapp/main.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+// class MyApp extends StatelessWidget {
+//   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Help & Contact',
-        theme: ThemeData(
-            // primarySwatch: Colors.blue,
-            ),
-        home: Contact());
-  }
-}
+//   // This widget is the root of your application.
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//         debugShowCheckedModeBanner: false,
+//         title: 'Help & Contact',
+//         theme: ThemeData(
+//             // primarySwatch: Colors.blue,
+//             ),
+//         home: Contact());
+//   }
+// }
 
 class Contact extends StatefulWidget {
-  const Contact({Key? key}) : super(key: key);
+  // const Contact({Key? key}) : super(key: key);
+  // Contact({Key? key,  required this.variable}) : super(key: key);
+  // String? variable;
+  Contact({Key? key, required this.token}) : super(key: key);
+  String? token;
+  // String? variable;
 
   @override
   State<Contact> createState() => _ContactState();
@@ -32,77 +37,92 @@ class Contact extends StatefulWidget {
 class _ContactState extends State<Contact> {
   String _helpy = "";
 
-  String _utype = "";
+  //  final List<String> _type = [
+  //   'Admin',
+  //   'Customer',
+  //   'Employee',
+  // ];
 
-  String dropdownvalue = 'Select Your User Type';
+  // String _utype = "";
 
-  // List of items in our dropdown menu
-  var items = [
-    'Select Your User Type',
-    'User',
-    'Admin',
-    'Employee',
-  ];
+  // String dropdownvalue = 'Select Your User Type';
+
+  // // List of items in our dropdown menu
+  // var items = [
+  //   'Select Your User Type',
+  //   'Customer',
+  //   'Admin',
+  //   'Employee',
+  // ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Help & Cotact"),
+        title: Text("Help & Contact"),
         foregroundColor: Colors.cyan,
         backgroundColor: Colors.black,
         actions: [
-          Container(
-            height: 40,
-            padding: EdgeInsets.only(left: 30),
-            child: DropdownButton(
-              // Initial Value
-              value: dropdownvalue,
+          // Container(
+          //   height: 40,
+          //   padding: EdgeInsets.only(left: 30),
+          //   child: DropdownButton(
+          //     // Initial Value
+          //     value: dropdownvalue,
 
-              // Down Arrow Icon
-              icon: const Icon(Icons.keyboard_arrow_down),
+          //     // Down Arrow Icon
+          //     icon: const Icon(Icons.keyboard_arrow_down),
 
-              // Array list of items
-              items: items.map((String items) {
-                return DropdownMenuItem(
-                  value: items,
-                  child: Text(items),
-                );
-              }).toList(),
-              // After selecting the desired option,it will
-              // change button value to selected value
-              onChanged: (String? newValue) {
-                setState(() {
-                  dropdownvalue = newValue!;
-                  _utype = dropdownvalue;
-                });
-              },
-              dropdownColor: Colors.blueGrey[50],
-              //Color.fromARGB(255, 15, 174, 202),
-              style: TextStyle(
-                color: Color.fromARGB(255, 65, 64, 64),
-                //backgroundColor: Colors.white,
-              ),
-            ),
-          ),
+          //     // Array list of items
+          //     items: items.map((String items) {
+          //       return DropdownMenuItem(
+          //         value: items,
+          //         child: Text(items),
+          //       );
+          //     }).toList(),
+          //     // After selecting the desired option,it will
+          //     // change button value to selected value
+          //     onChanged: (String? newValue) {
+          //       setState(() {
+          //         dropdownvalue = newValue!;
+          //         _utype = dropdownvalue;
+          //       });
+          //     },
+          //     dropdownColor: Colors.blueGrey[50],
+          //     //Color.fromARGB(255, 15, 174, 202),
+          //     style: TextStyle(
+          //       color: Color.fromARGB(255, 65, 64, 64),
+          //       //backgroundColor: Colors.white,
+          //     ),
+          //   ),
+          // ),
           Container(
               padding: EdgeInsets.only(left: 100),
               child: TextButton(
                   onPressed: () {
-                    if (_utype == "Admin") {
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) => Dashboard()));
-                    } else if (_utype == "Employee") {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => EmployeeDashboard()));
-                    } else if (_utype == "User") {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => UserDashboard()));
-                    }
+                    // if (_type == "Admin") {
+                    //   Navigator.pushReplacement(
+                    //       context,
+                    //       MaterialPageRoute(
+                    //           builder: (context) => Dashboard(
+                    //                 token: '',variable: _type[0]
+                    //               )));
+                    // } else if (_type == "Customer") {
+                    //   Navigator.pushReplacement(
+                    //       context,
+                    //       MaterialPageRoute(
+                    //           builder: (context) => UserDashboard(variable: _type[1])));
+                    // } else if (_type == "Employee") {
+                    //   Navigator.pushReplacement(
+                    //       context,
+                    //       MaterialPageRoute(
+                    //           builder: (context) => EmployeeDashboard(variable: _type[2])));
+                    // }
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                UserDashboard(token: widget.token)));
                   },
                   child: Text(
                     "Back",
@@ -197,8 +217,15 @@ class _ContactState extends State<Contact> {
                     print("------------------------");
                     print(_helpy);
 
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => Dashboard()));
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text('Message Submit Successful !')));
+
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Dashboard(
+                                  token: '',
+                                )));
                   },
                   child: Text("Submit")),
             ),

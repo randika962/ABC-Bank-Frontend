@@ -2,26 +2,50 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:signapp/dashboard.dart';
-import 'package:signapp/transaction.dart';
-import 'package:signapp/about.dart';
-import 'package:signapp/contact.dart';
-import 'package:signapp/creditcard.dart';
-import 'package:signapp/digital.dart';
+import 'package:signapp/controller/transaction.dart';
+import 'package:carousel_slider/carousel_controller.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:signapp/employeedashboard.dart';
+import 'package:signapp/view/about.dart';
+import 'package:signapp/view/contact.dart';
+import 'package:signapp/view/creditcard.dart';
+import 'package:signapp/view/digital.dart';
 import 'package:signapp/main.dart';
+import 'package:signapp/view/profile.dart';
+import 'package:signapp/view/view_account.dart';
 
 class UserDashboard extends StatefulWidget {
-  const UserDashboard({Key? key}) : super(key: key);
+  // const UserDashboard({Key? key}) : super(key: key);
+  // UserDashboard({Key? key, required this.variable, String? token}) : super(key: key);
+  // String? variable;
+  UserDashboard({Key? key, required this.token}) : super(key: key);
+  String? token;
 
   @override
   State<UserDashboard> createState() => _UserDashboardState();
 }
 
 class _UserDashboardState extends State<UserDashboard> {
+  // final List<String> _type = [
+  //   'Admin',
+  //   'Customer',
+  //   'Employee',
+  // ];
+
+  final List<String> imgList = [
+    'lib/assets/Images/blog.jpg',
+    'lib/assets/Images/blog2.jpg',
+    'lib/assets/Images/blog3.jpg',
+    'lib/assets/Images/blog4.jpg',
+    'lib/assets/Images/blog5.jpg',
+    'lib/assets/Images/blog6.jpg',
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("ABC User Dashboard"),
+        title: Text("ABC Customer Dashboard"),
         foregroundColor: Colors.cyan,
         backgroundColor: Colors.black,
         actions: [
@@ -33,7 +57,7 @@ class _UserDashboardState extends State<UserDashboard> {
                         MaterialPageRoute(builder: (context) => LoginPage()));
                   },
                   child: Text(
-                    "User SignOut",
+                    "Customer SignOut",
                     style: TextStyle(color: Colors.yellow),
                   ))),
         ],
@@ -57,7 +81,8 @@ class _UserDashboardState extends State<UserDashboard> {
                               Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => Dashboard()));
+                                      builder: (context) =>
+                                          Dashboard(token: widget.token)));
                             },
                             child: Text(
                               "Dashboard",
@@ -74,13 +99,101 @@ class _UserDashboardState extends State<UserDashboard> {
                           padding: EdgeInsets.only(bottom: 25),
                           child: TextButton(
                             onPressed: () {
+                              // if (_type == "Admin") {
+                              //   Navigator.pushReplacement(
+                              //       context,
+                              //       MaterialPageRoute(
+                              //           builder: (context) => Dashboard(
+                              //               token: '', variable: _type[0])));
+                              // } else if (_type == "Customer") {
+                              //   Navigator.pushReplacement(
+                              //       context,
+                              //       MaterialPageRoute(
+                              //           builder: (context) =>
+                              //               UserDashboard(variable: _type[1])));
+                              // } else if (_type == "Employee") {
+                              //   Navigator.pushReplacement(
+                              //       context,
+                              //       MaterialPageRoute(
+                              //           builder: (context) => EmployeeDashboard(
+                              //               variable: _type[2])));
+                              // }
                               Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => About()));
+                                      builder: (context) =>
+                                          About(token: widget.token)));
                             },
                             child: Text(
                               "Info",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                              ),
+                            ),
+                          )),
+                      SizedBox(width: 12),
+                      Image.asset('lib/assets/Images/users.png'),
+                      SizedBox(width: 20),
+                      Container(
+                          padding: EdgeInsets.only(bottom: 25),
+                          child: TextButton(
+                            onPressed: () {
+                              // if (_type == "Customer") {
+                              //   Navigator.pushReplacement(
+                              //       context,
+                              //       MaterialPageRoute(
+                              //           builder: (context) =>
+                              //               UserDashboard(variable: _type[0])));
+                              // } else if (_type == "Employee") {
+                              //   Navigator.pushReplacement(
+                              //       context,
+                              //       MaterialPageRoute(
+                              //           builder: (context) => EmployeeDashboard(
+                              //               variable: _type[1])));
+                              // }
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          Profile(token: widget.token)));
+                            },
+                            child: Text(
+                              "User Profile",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                              ),
+                            ),
+                          )),
+                      SizedBox(width: 12),
+                      Image.asset('lib/assets/Images/users.png'),
+                      SizedBox(width: 20),
+                      Container(
+                          padding: EdgeInsets.only(bottom: 25),
+                          child: TextButton(
+                            onPressed: () {
+                              // if (_type == "Customer") {
+                              //   Navigator.pushReplacement(
+                              //       context,
+                              //       MaterialPageRoute(
+                              //           builder: (context) =>
+                              //               UserDashboard(variable: _type[0])));
+                              // } else if (_type == "Employee") {
+                              //   Navigator.pushReplacement(
+                              //       context,
+                              //       MaterialPageRoute(
+                              //           builder: (context) => EmployeeDashboard(
+                              //               variable: _type[1])));
+                              // }
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          ViewAccount(token: widget.token)));
+                            },
+                            child: Text(
+                              "View Account",
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 15,
@@ -94,10 +207,24 @@ class _UserDashboardState extends State<UserDashboard> {
                           padding: EdgeInsets.only(bottom: 25),
                           child: TextButton(
                             onPressed: () {
+                              // if (_type == "Customer") {
+                              //   Navigator.pushReplacement(
+                              //       context,
+                              //       MaterialPageRoute(
+                              //           builder: (context) =>
+                              //               UserDashboard(variable: _type[0])));
+                              // } else if (_type == "Employee") {
+                              //   Navigator.pushReplacement(
+                              //       context,
+                              //       MaterialPageRoute(
+                              //           builder: (context) => EmployeeDashboard(
+                              //               variable: _type[1])));
+                              // }
                               Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => Transaction()));
+                                      builder: (context) =>
+                                          Transaction(token: widget.token)));
                             },
                             child: Text(
                               "Transaction",
@@ -114,10 +241,30 @@ class _UserDashboardState extends State<UserDashboard> {
                           padding: EdgeInsets.only(bottom: 25),
                           child: TextButton(
                             onPressed: () {
+                              // if (_type == "Admin") {
+                              //   Navigator.pushReplacement(
+                              //       context,
+                              //       MaterialPageRoute(
+                              //           builder: (context) => Dashboard(
+                              //               token: '', variable: _type[0])));
+                              // } else if (_type == "Customer") {
+                              //   Navigator.pushReplacement(
+                              //       context,
+                              //       MaterialPageRoute(
+                              //           builder: (context) =>
+                              //               UserDashboard(variable: _type[1])));
+                              // } else if (_type == "Employee") {
+                              //   Navigator.pushReplacement(
+                              //       context,
+                              //       MaterialPageRoute(
+                              //           builder: (context) => EmployeeDashboard(
+                              //               variable: _type[2])));
+                              // }
                               Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => CreditCard()));
+                                      builder: (context) =>
+                                          CreditCard(token: widget.token)));
                             },
                             child: Text(
                               "Credit Cards",
@@ -134,10 +281,30 @@ class _UserDashboardState extends State<UserDashboard> {
                           padding: EdgeInsets.only(bottom: 25),
                           child: TextButton(
                             onPressed: () {
+                              // if (_type == "Admin") {
+                              //   Navigator.pushReplacement(
+                              //       context,
+                              //       MaterialPageRoute(
+                              //           builder: (context) => Dashboard(
+                              //               token: '', variable: _type[0])));
+                              // } else if (_type == "Customer") {
+                              //   Navigator.pushReplacement(
+                              //       context,
+                              //       MaterialPageRoute(
+                              //           builder: (context) =>
+                              //               UserDashboard(variable: _type[1])));
+                              // } else if (_type == "Employee") {
+                              //   Navigator.pushReplacement(
+                              //       context,
+                              //       MaterialPageRoute(
+                              //           builder: (context) => EmployeeDashboard(
+                              //               variable: _type[2])));
+                              // }
                               Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => Digital()));
+                                      builder: (context) =>
+                                          Digital(token: widget.token)));
                             },
                             child: Text(
                               "Digital Banking",
@@ -154,10 +321,30 @@ class _UserDashboardState extends State<UserDashboard> {
                           padding: EdgeInsets.only(bottom: 25),
                           child: TextButton(
                             onPressed: () {
+                              // if (_type == "Admin") {
+                              //   Navigator.pushReplacement(
+                              //       context,
+                              //       MaterialPageRoute(
+                              //           builder: (context) => Dashboard(
+                              //               token: '', variable: _type[0])));
+                              // } else if (_type == "Customer") {
+                              //   Navigator.pushReplacement(
+                              //       context,
+                              //       MaterialPageRoute(
+                              //           builder: (context) =>
+                              //               UserDashboard(variable: _type[1])));
+                              // } else if (_type == "Employee") {
+                              //   Navigator.pushReplacement(
+                              //       context,
+                              //       MaterialPageRoute(
+                              //           builder: (context) => EmployeeDashboard(
+                              //               variable: _type[2])));
+                              // }
                               Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => Contact()));
+                                      builder: (context) =>
+                                          Contact(token: widget.token)));
                             },
                             child: Text(
                               "Help & Contact",
@@ -178,7 +365,30 @@ class _UserDashboardState extends State<UserDashboard> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Image.asset('lib/assets/Images/blog.jpg'),
+                      Container(
+                        child: CarouselSlider(
+                          options: CarouselOptions(
+                              autoPlay: true,
+                              aspectRatio: 2.0,
+                              enlargeCenterPage: true,
+                              disableCenter: true,
+                              height: 300.0),
+                          items: [1, 2, 3, 4, 5].map((i) {
+                            return Builder(
+                              builder: (BuildContext context) {
+                                return Container(
+
+                                    // margin:
+                                    //     EdgeInsets.symmetric(horizontal: 0),
+                                    // decoration:
+                                    //     BoxDecoration(color: Colors.amber),
+                                    child: Image.asset(imgList[i]));
+                              },
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                      // Image.asset('lib/assets/Images/blog.jpg'),
                       SizedBox(height: 60),
                       Padding(
                         padding: const EdgeInsets.only(left: 5, right: 5),
@@ -215,7 +425,7 @@ class _UserDashboardState extends State<UserDashboard> {
                               height: 160,
                               width: 300,
                               child: Text(
-                                "Total Users *",
+                                "Savings #",
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 30,
@@ -234,7 +444,7 @@ class _UserDashboardState extends State<UserDashboard> {
                               height: 160,
                               width: 300,
                               child: Text(
-                                "Percentage %",
+                                "Interests %",
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 30,

@@ -6,31 +6,41 @@ import 'package:signapp/userdashboard.dart';
 import 'package:signapp/employeedashboard.dart';
 import 'package:signapp/main.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+// class MyApp extends StatelessWidget {
+//   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Transaction',
-        theme: ThemeData(
-            // primarySwatch: Colors.blue,
-            ),
-        home: Transaction());
-  }
-}
+//   // This widget is the root of your application.
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//         debugShowCheckedModeBanner: false,
+//         title: 'Transaction',
+//         theme: ThemeData(
+//             // primarySwatch: Colors.blue,
+//             ),
+//         home: Transaction());
+//   }
+// }
 
 class Transaction extends StatefulWidget {
-  const Transaction({Key? key}) : super(key: key);
+  // const Transaction({Key? key}) : super(key: key);
+  // Transaction({Key? key,  required this.variable}) : super(key: key);
+  // String? variable;
+  Transaction({Key? key, required this.token}) : super(key: key);
+  String? token;
 
   @override
   State<Transaction> createState() => _TransactionState();
 }
 
 class _TransactionState extends State<Transaction> {
+  // final List<String> _type = [
+  //   'Customer',
+  //   'Employee',
+  // ];
+
   String _tid = "";
+  String _amount = "";
   String _ttype = "";
   String _sid = "";
   String _did = "";
@@ -44,22 +54,27 @@ class _TransactionState extends State<Transaction> {
     'Transaction fund',
   ];
 
-  String _utype = "";
+  // String _utype = "";
 
-  String dropvalue = 'Select Your User Type';
+  // String dropvalue = 'Select Your User Type';
 
-  // List of items in our dropdown menu
-  var ims = [
-    'Select Your User Type',
-    'User',
-    'Employee',
-  ];
+  // // List of items in our dropdown menu
+  // var ims = [
+  //   'Select Your User Type',
+  //   'Customer',
+  //   'Employee',
+  // ];
 
-  final nameHolder = TextEditingController();
+  // final nameHolder = TextEditingController();
 
-  clearTextInput() {
-    nameHolder.clear();
-  }
+  // clearTextInput() {
+  //   nameHolder.clear();
+  // }
+
+  var _transcontroller = TextEditingController();
+  var _amscontroller = TextEditingController();
+  var _sourcontroller = TextEditingController();
+  var _descontroller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -69,39 +84,39 @@ class _TransactionState extends State<Transaction> {
           foregroundColor: Colors.cyan,
           backgroundColor: Colors.black,
           actions: [
-            Container(
-              height: 40,
-              padding: EdgeInsets.only(left: 30),
-              child: DropdownButton(
-                // Initial Value
-                value: dropvalue,
+            // Container(
+            //   height: 40,
+            //   padding: EdgeInsets.only(left: 30),
+            //   child: DropdownButton(
+            //     // Initial Value
+            //     value: dropvalue,
 
-                // Down Arrow Icon
-                icon: const Icon(Icons.keyboard_arrow_down),
+            //     // Down Arrow Icon
+            //     icon: const Icon(Icons.keyboard_arrow_down),
 
-                // Array list of items
-                items: ims.map((String ims) {
-                  return DropdownMenuItem(
-                    value: ims,
-                    child: Text(ims),
-                  );
-                }).toList(),
-                // After selecting the desired option,it will
-                // change button value to selected value
-                onChanged: (String? newValue) {
-                  setState(() {
-                    dropvalue = newValue!;
-                    _utype = dropvalue;
-                  });
-                },
-                dropdownColor: Colors.blueGrey[50],
-                //Color.fromARGB(255, 15, 174, 202),
-                style: TextStyle(
-                  color: Color.fromARGB(255, 65, 64, 64),
-                  //backgroundColor: Colors.white,
-                ),
-              ),
-            ),
+            //     // Array list of items
+            //     items: ims.map((String ims) {
+            //       return DropdownMenuItem(
+            //         value: ims,
+            //         child: Text(ims),
+            //       );
+            //     }).toList(),
+            //     // After selecting the desired option,it will
+            //     // change button value to selected value
+            //     onChanged: (String? newValue) {
+            //       setState(() {
+            //         dropvalue = newValue!;
+            //         _utype = dropvalue;
+            //       });
+            //     },
+            //     dropdownColor: Colors.blueGrey[50],
+            //     //Color.fromARGB(255, 15, 174, 202),
+            //     style: TextStyle(
+            //       color: Color.fromARGB(255, 65, 64, 64),
+            //       //backgroundColor: Colors.white,
+            //     ),
+            //   ),
+            // ),
             Container(
                 padding: EdgeInsets.only(left: 100),
                 child: TextButton(
@@ -109,17 +124,22 @@ class _TransactionState extends State<Transaction> {
                       // Navigator.pushReplacement(context,
                       //     MaterialPageRoute(builder: (context) => Dashboard()));
 
-                      if (_utype == "User") {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => UserDashboard()));
-                      } else if (_utype == "Employee") {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => EmployeeDashboard()));
-                      }
+                      // if (_type == "Customer") {
+                      //   Navigator.pushReplacement(
+                      //       context,
+                      //       MaterialPageRoute(
+                      //           builder: (context) => UserDashboard(variable: _type[0])));
+                      // } else if (_type == "Employee") {
+                      //   Navigator.pushReplacement(
+                      //       context,
+                      //       MaterialPageRoute(
+                      //           builder: (context) => EmployeeDashboard(variable: _type[1])));
+                      // }
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  UserDashboard(token: widget.token)));
                     },
                     child: Text(
                       "Back",
@@ -136,10 +156,11 @@ class _TransactionState extends State<Transaction> {
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        SizedBox(height: 70),
+                        SizedBox(height: 30),
                         Container(
                           padding: EdgeInsets.only(left: 50, right: 50),
                           child: TextFormField(
+                            controller: _transcontroller,
                             //   controller: nameHolder,
                             style: TextStyle(
                               color: Color.fromARGB(255, 6, 34, 56),
@@ -165,6 +186,38 @@ class _TransactionState extends State<Transaction> {
                             ),
                             onChanged: (val) {
                               _tid = val;
+                            },
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        Container(
+                          padding: EdgeInsets.only(left: 50, right: 50),
+                          child: TextFormField(
+                            controller: _amscontroller,
+                            //  controller: nameHolder,
+                            style: TextStyle(
+                              color: Color.fromARGB(255, 6, 34, 56),
+                              fontSize: 15,
+                            ),
+                            decoration: InputDecoration(
+                              hintText: "Transaction Amount",
+                              hintStyle: TextStyle(color: Colors.black),
+                              suffixIcon: const Icon(Icons.monetization_on,
+                                  color: Colors.grey),
+                              fillColor: Colors.blueGrey[50],
+                              filled: true,
+                              contentPadding: const EdgeInsets.only(left: 30),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide:
+                                      const BorderSide(color: Colors.green)),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide:
+                                      const BorderSide(color: Colors.grey)),
+                            ),
+                            onChanged: (val2) {
+                              _amount = val2;
                             },
                           ),
                         ),
@@ -206,6 +259,7 @@ class _TransactionState extends State<Transaction> {
                         Container(
                           padding: EdgeInsets.only(left: 50, right: 50),
                           child: TextFormField(
+                            controller: _sourcontroller,
                             //  controller: nameHolder,
                             style: TextStyle(
                               color: Color.fromARGB(255, 6, 34, 56),
@@ -228,8 +282,8 @@ class _TransactionState extends State<Transaction> {
                                   borderSide:
                                       const BorderSide(color: Colors.grey)),
                             ),
-                            onChanged: (val2) {
-                              _sid = val2;
+                            onChanged: (val3) {
+                              _sid = val3;
                             },
                           ),
                         ),
@@ -237,6 +291,7 @@ class _TransactionState extends State<Transaction> {
                         Container(
                           padding: EdgeInsets.only(left: 50, right: 50),
                           child: TextFormField(
+                            controller: _descontroller,
                             //    controller: nameHolder,
                             style: TextStyle(
                               color: Color.fromARGB(255, 6, 34, 56),
@@ -262,9 +317,9 @@ class _TransactionState extends State<Transaction> {
                                   borderSide:
                                       const BorderSide(color: Colors.grey)),
                             ),
-                            onChanged: (val3) {
+                            onChanged: (val4) {
                               //print(val);
-                              _did = val3;
+                              _did = val4;
                             },
                           ),
                         ),
@@ -279,10 +334,17 @@ class _TransactionState extends State<Transaction> {
                                 print("Transaction Successful !!!");
                                 print("------------------------");
                                 print("Your Transaction ID is : ${_tid}");
+                                print(
+                                    "Your Transaction Amount is : ${_amount}");
                                 print(_ttype);
                                 print("Your Source Account ID is : ${_sid}");
                                 print(
                                     "Your Destination Account ID is : ${_did}");
+
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        content:
+                                            Text('Transaction Successful !')));
                               },
                               child: Text("Submit")),
                         ),
@@ -292,7 +354,18 @@ class _TransactionState extends State<Transaction> {
                           width: 500,
                           padding: EdgeInsets.only(left: 50, right: 50),
                           child: ElevatedButton(
-                              onPressed: () {}, child: Text("Clear")),
+                              style: ElevatedButton.styleFrom(
+                                primary: Color.fromARGB(
+                                    255, 212, 98, 22), // background
+                                onPrimary: Colors.white, // foreground
+                              ),
+                              onPressed: () {
+                                _transcontroller.clear();
+                                _amscontroller.clear();
+                                _sourcontroller.clear();
+                                _descontroller.clear();
+                              },
+                              child: Text("Clear")),
                         ),
                       ]),
                 )),
@@ -301,236 +374,10 @@ class _TransactionState extends State<Transaction> {
               child: Container(
                 color: Color.fromARGB(255, 163, 176, 219),
                 child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(height: 30),
-                      Container(
-                          padding: EdgeInsets.only(top: 10),
-                          child: Text(
-                            "ABC @ 2022 All rights reserved",
-                            style: TextStyle(color: Colors.black, fontSize: 10),
-                          )),
-                      Padding(
-                        padding:
-                            const EdgeInsets.only(top: 40, left: 10, right: 10),
-                        child: Table(
-                          border: TableBorder.all(),
-                          children: const [
-                            TableRow(children: [
-                              Text(
-                                "Transaction ID",
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                "Amount",
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                "Description",
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                "Type",
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                "Time",
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                "Source ID",
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                "Destination ID",
-                                textAlign: TextAlign.center,
-                              ),
-                            ]),
-                            TableRow(children: [
-                              Text(
-                                "1",
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                "500000",
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                "welcome",
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                "w",
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                "2022-04-29 15:07:00",
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                "3",
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                "5",
-                                textAlign: TextAlign.center,
-                              ),
-                            ]),
-                            TableRow(children: [
-                              Text(
-                                "2",
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                "800000",
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                "welcome",
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                "w",
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                "2022-04-29 15:07:00",
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                "2",
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                "6",
-                                textAlign: TextAlign.center,
-                              ),
-                            ]),
-                            TableRow(children: [
-                              Text(
-                                "3",
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                "250000",
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                "welcome",
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                "d",
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                "2022-04-29 15:07:00",
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                "2",
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                "6",
-                                textAlign: TextAlign.center,
-                              ),
-                            ]),
-                            TableRow(children: [
-                              Text(
-                                "4",
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                "90000",
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                "welcome",
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                "d",
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                "2022-04-29 15:07:00",
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                "2",
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                "6",
-                                textAlign: TextAlign.center,
-                              ),
-                            ]),
-                            TableRow(children: [
-                              Text(
-                                "5",
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                "650000",
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                "welcome",
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                "t",
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                "2022-04-29 15:07:00",
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                "2",
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                "6",
-                                textAlign: TextAlign.center,
-                              ),
-                            ]),
-                            TableRow(children: [
-                              Text(
-                                "6",
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                "750000",
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                "welcome",
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                "t",
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                "2022-04-29 15:07:00",
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                "2",
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                "6",
-                                textAlign: TextAlign.center,
-                              ),
-                            ]),
-                          ],
-                        ),
-                      )
-                    ]),
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [],
+                ),
               ),
             ),
           ]),

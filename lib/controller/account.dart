@@ -3,9 +3,13 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:signapp/dashboard.dart';
 import 'package:signapp/main.dart';
+import 'package:http/http.dart' as http;
+import 'package:signapp/model/account_response.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  // const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key, required this.token}) : super(key: key);
+  String? token;
 
   // This widget is the root of your application.
   @override
@@ -16,12 +20,18 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             // primarySwatch: Colors.blue,
             ),
-        home: Account());
+        home: Account(
+          token: token,
+        ));
   }
 }
 
 class Account extends StatefulWidget {
-  const Account({Key? key}) : super(key: key);
+  // const Account({Key? key}) : super(key: key);
+  Account({Key? key, this.token}) : super(key: key);
+  String? token;
+
+  // get token => null;
 
   @override
   State<Account> createState() => _AccountState();
@@ -41,6 +51,48 @@ class _AccountState extends State<Account> {
     'Admin',
     'Employer',
   ];
+
+  var _acccontroller = TextEditingController();
+  var _usercontroller = TextEditingController();
+  var _numcontroller = TextEditingController();
+
+  // var body = {};
+  // Accountresponse? accountresponse;
+  // bool _loading = false;
+
+  // // get http => null;
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   getAllAccount();
+  // }
+
+  // void getAllAccount() async {
+  //   setState(() {
+  //     _loading = true;
+  //   });
+  //   // print("$widget");
+  //   var response = await http.get(
+  //     Uri.parse("http://localhost:8080/bankaccount"),
+  //     headers: {"Authorization": "Bearer ${widget.token}"},
+  //   );
+
+  //   print("Status Code");
+  //   print(response.statusCode);
+  //   if (response.statusCode == 200) {
+  //     print("call user");
+  //     //accountresponseFromJson = accountresponseFromJson(response.body);
+  //     setState(() {});
+  //     for (int i = 0; i < accountresponse!.body!.length; i++) {
+  //       print(accountresponse!.body![i]._uid);
+  //     }
+
+  //     setState(() {
+  //       _loading = false;
+  //     });
+  //   }
+  // }
 
   // final TextEditingController _controller = TextEditingController();
 
@@ -64,8 +116,11 @@ class _AccountState extends State<Account> {
               padding: EdgeInsets.only(left: 100),
               child: TextButton(
                   onPressed: () {
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => Dashboard()));
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                Dashboard(token: widget.token)));
                   },
                   child: Text(
                     "Back",
@@ -82,10 +137,11 @@ class _AccountState extends State<Account> {
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      SizedBox(height: 70),
+                      SizedBox(height: 20),
                       Container(
                         padding: EdgeInsets.only(left: 50, right: 50),
                         child: TextFormField(
+                          controller: _acccontroller,
                           //    controller: nameHolder,
                           style: TextStyle(
                             color: Color.fromARGB(255, 6, 34, 56),
@@ -140,10 +196,10 @@ class _AccountState extends State<Account> {
                               _utype = dropdownvalue;
                             });
                           },
-                          dropdownColor: Colors.blueGrey[50],
+                          dropdownColor: Colors.deepPurple,
                           //Color.fromARGB(255, 15, 174, 202),
                           style: TextStyle(
-                            color: Color.fromARGB(255, 65, 64, 64),
+                            color: Colors.white,
                             //backgroundColor: Colors.white,
                           ),
                         ),
@@ -152,6 +208,7 @@ class _AccountState extends State<Account> {
                       Container(
                         padding: EdgeInsets.only(left: 50, right: 50),
                         child: TextFormField(
+                          controller: _usercontroller,
                           //    controller: nameHolder,
                           style: TextStyle(
                             color: Color.fromARGB(255, 6, 34, 56),
@@ -183,6 +240,7 @@ class _AccountState extends State<Account> {
                       Container(
                         padding: EdgeInsets.only(left: 50, right: 50),
                         child: TextFormField(
+                          controller: _numcontroller,
                           //     controller: nameHolder,
                           style: TextStyle(
                             color: Color.fromARGB(255, 6, 34, 56),
@@ -214,13 +272,15 @@ class _AccountState extends State<Account> {
                           },
                         ),
                       ),
-                      SizedBox(height: 100),
+                      SizedBox(height: 60),
                       Container(
                         height: 50,
                         width: 500,
                         padding: EdgeInsets.only(left: 50, right: 50),
                         child: ElevatedButton(
                             onPressed: () {
+                              // getAllAccount();
+
                               print("------------------------");
                               print("Account Information Added Successful !!!");
                               print("------------------------");
@@ -228,6 +288,11 @@ class _AccountState extends State<Account> {
                               print(_utype);
                               print("Your User ID is : ${_uid}");
                               print("Your Account Number is : ${_ano}");
+
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text(
+                                          'Account Created Successful !')));
                             },
                             child: Text("Submit")),
                       ),
@@ -237,7 +302,36 @@ class _AccountState extends State<Account> {
                         width: 500,
                         padding: EdgeInsets.only(left: 50, right: 50),
                         child: ElevatedButton(
-                            onPressed: () {}, child: Text("Clear")),
+                            style: ElevatedButton.styleFrom(
+                              primary: Color.fromARGB(
+                                  255, 212, 98, 22), // background
+                              onPrimary: Colors.white, // foreground
+                            ),
+                            onPressed: () {
+                              _acccontroller.clear();
+                              _usercontroller.clear();
+                              _numcontroller.clear();
+                            },
+                            child: Text("Clear")),
+                      ),
+                      SizedBox(height: 30),
+                      Container(
+                        height: 50,
+                        width: 500,
+                        padding: EdgeInsets.only(left: 50, right: 50),
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: Color.fromARGB(
+                                  255, 209, 25, 25), // background
+                              onPrimary: Colors.white, // foreground
+                            ),
+                            onPressed: () {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text(
+                                          'Account Deleted Successful !')));
+                            },
+                            child: Text("Delete")),
                       ),
                     ]),
               )),
@@ -249,6 +343,12 @@ class _AccountState extends State<Account> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    Container(
+                      height: 540,
+                      width: MediaQuery.of(context).size.width,
+                      child: new ListVewBuilder(token: widget.token),
+                      // getAllUsers();
+                    ),
                     SizedBox(height: 30),
                     Container(
                         padding: EdgeInsets.only(top: 10),
@@ -256,141 +356,141 @@ class _AccountState extends State<Account> {
                           "ABC @ 2022 All rights reserved",
                           style: TextStyle(color: Colors.black, fontSize: 10),
                         )),
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(top: 40, left: 10, right: 10),
-                      child: Table(
-                        border: TableBorder.all(),
-                        children: const [
-                          TableRow(children: [
-                            Text(
-                              "Account ID",
-                              textAlign: TextAlign.center,
-                            ),
-                            Text(
-                              "Account Number",
-                              textAlign: TextAlign.center,
-                            ),
-                            Text(
-                              "Account Balance",
-                              textAlign: TextAlign.center,
-                            ),
-                            Text(
-                              "User ID",
-                              textAlign: TextAlign.center,
-                            ),
-                          ]),
-                          TableRow(children: [
-                            Text(
-                              "1",
-                              textAlign: TextAlign.center,
-                            ),
-                            Text(
-                              "acc678954311",
-                              textAlign: TextAlign.center,
-                            ),
-                            Text(
-                              "12450",
-                              textAlign: TextAlign.center,
-                            ),
-                            Text(
-                              "1",
-                              textAlign: TextAlign.center,
-                            ),
-                          ]),
-                          TableRow(children: [
-                            Text(
-                              "2",
-                              textAlign: TextAlign.center,
-                            ),
-                            Text(
-                              "acc678954311",
-                              textAlign: TextAlign.center,
-                            ),
-                            Text(
-                              "12450",
-                              textAlign: TextAlign.center,
-                            ),
-                            Text(
-                              "2",
-                              textAlign: TextAlign.center,
-                            ),
-                          ]),
-                          TableRow(children: [
-                            Text(
-                              "3",
-                              textAlign: TextAlign.center,
-                            ),
-                            Text(
-                              "acc678954311",
-                              textAlign: TextAlign.center,
-                            ),
-                            Text(
-                              "12450",
-                              textAlign: TextAlign.center,
-                            ),
-                            Text(
-                              "3",
-                              textAlign: TextAlign.center,
-                            ),
-                          ]),
-                          TableRow(children: [
-                            Text(
-                              "4",
-                              textAlign: TextAlign.center,
-                            ),
-                            Text(
-                              "acc678954311",
-                              textAlign: TextAlign.center,
-                            ),
-                            Text(
-                              "12450",
-                              textAlign: TextAlign.center,
-                            ),
-                            Text(
-                              "4",
-                              textAlign: TextAlign.center,
-                            ),
-                          ]),
-                          TableRow(children: [
-                            Text(
-                              "5",
-                              textAlign: TextAlign.center,
-                            ),
-                            Text(
-                              "acc678954311",
-                              textAlign: TextAlign.center,
-                            ),
-                            Text(
-                              "12450",
-                              textAlign: TextAlign.center,
-                            ),
-                            Text(
-                              "5",
-                              textAlign: TextAlign.center,
-                            ),
-                          ]),
-                          TableRow(children: [
-                            Text(
-                              "6",
-                              textAlign: TextAlign.center,
-                            ),
-                            Text(
-                              "acc678954311",
-                              textAlign: TextAlign.center,
-                            ),
-                            Text(
-                              "12450",
-                              textAlign: TextAlign.center,
-                            ),
-                            Text(
-                              "6",
-                              textAlign: TextAlign.center,
-                            ),
-                          ]),
-                        ],
-                      ),
-                    )
+                    // Padding(
+                    //   padding:
+                    //       const EdgeInsets.only(top: 40, left: 10, right: 10),
+                    //   child: Table(
+                    //     border: TableBorder.all(),
+                    //     children: const [
+                    //       TableRow(children: [
+                    //         Text(
+                    //           "Account ID",
+                    //           textAlign: TextAlign.center,
+                    //         ),
+                    //         Text(
+                    //           "Account Number",
+                    //           textAlign: TextAlign.center,
+                    //         ),
+                    //         Text(
+                    //           "Account Balance",
+                    //           textAlign: TextAlign.center,
+                    //         ),
+                    //         Text(
+                    //           "User ID",
+                    //           textAlign: TextAlign.center,
+                    //         ),
+                    //       ]),
+                    //       TableRow(children: [
+                    //         Text(
+                    //           "1",
+                    //           textAlign: TextAlign.center,
+                    //         ),
+                    //         Text(
+                    //           "acc678954311",
+                    //           textAlign: TextAlign.center,
+                    //         ),
+                    //         Text(
+                    //           "12450",
+                    //           textAlign: TextAlign.center,
+                    //         ),
+                    //         Text(
+                    //           "1",
+                    //           textAlign: TextAlign.center,
+                    //         ),
+                    //       ]),
+                    //       TableRow(children: [
+                    //         Text(
+                    //           "2",
+                    //           textAlign: TextAlign.center,
+                    //         ),
+                    //         Text(
+                    //           "acc678954311",
+                    //           textAlign: TextAlign.center,
+                    //         ),
+                    //         Text(
+                    //           "12450",
+                    //           textAlign: TextAlign.center,
+                    //         ),
+                    //         Text(
+                    //           "2",
+                    //           textAlign: TextAlign.center,
+                    //         ),
+                    //       ]),
+                    //       TableRow(children: [
+                    //         Text(
+                    //           "3",
+                    //           textAlign: TextAlign.center,
+                    //         ),
+                    //         Text(
+                    //           "acc678954311",
+                    //           textAlign: TextAlign.center,
+                    //         ),
+                    //         Text(
+                    //           "12450",
+                    //           textAlign: TextAlign.center,
+                    //         ),
+                    //         Text(
+                    //           "3",
+                    //           textAlign: TextAlign.center,
+                    //         ),
+                    //       ]),
+                    //       TableRow(children: [
+                    //         Text(
+                    //           "4",
+                    //           textAlign: TextAlign.center,
+                    //         ),
+                    //         Text(
+                    //           "acc678954311",
+                    //           textAlign: TextAlign.center,
+                    //         ),
+                    //         Text(
+                    //           "12450",
+                    //           textAlign: TextAlign.center,
+                    //         ),
+                    //         Text(
+                    //           "4",
+                    //           textAlign: TextAlign.center,
+                    //         ),
+                    //       ]),
+                    //       TableRow(children: [
+                    //         Text(
+                    //           "5",
+                    //           textAlign: TextAlign.center,
+                    //         ),
+                    //         Text(
+                    //           "acc678954311",
+                    //           textAlign: TextAlign.center,
+                    //         ),
+                    //         Text(
+                    //           "12450",
+                    //           textAlign: TextAlign.center,
+                    //         ),
+                    //         Text(
+                    //           "5",
+                    //           textAlign: TextAlign.center,
+                    //         ),
+                    //       ]),
+                    //       TableRow(children: [
+                    //         Text(
+                    //           "6",
+                    //           textAlign: TextAlign.center,
+                    //         ),
+                    //         Text(
+                    //           "acc678954311",
+                    //           textAlign: TextAlign.center,
+                    //         ),
+                    //         Text(
+                    //           "12450",
+                    //           textAlign: TextAlign.center,
+                    //         ),
+                    //         Text(
+                    //           "6",
+                    //           textAlign: TextAlign.center,
+                    //         ),
+                    //       ]),
+                    //     ],
+                    //   ),
+                    // )
                   ]),
             ),
           ),
@@ -468,5 +568,95 @@ class _AccountState extends State<Account> {
     //         style: TextStyle(color: Colors.white, fontSize: 10),
     //       )),
     // ])),
+  }
+}
+
+class ListVewBuilder extends StatefulWidget {
+  ListVewBuilder({Key? key, this.token}) : super(key: key);
+  String? token;
+  @override
+  State<ListVewBuilder> createState() => _ListVewBuilderState();
+}
+
+class _ListVewBuilderState extends State<ListVewBuilder> {
+  List<Accountresponse>? accountresponse;
+  bool _loading = false;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getAllAccounts();
+  }
+
+  void getAllAccounts() async {
+    setState(() {
+      _loading = true;
+    });
+    print("${widget.token}");
+    var response = await http.get(
+      Uri.parse("http://localhost:8080/bankaccount"),
+      headers: {"Authorization": "Bearer ${widget.token}"},
+    );
+    print("Status Code");
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      accountresponse = accountresponseFromJson(response.body);
+      setState(() {});
+      for (int i = 0; i < accountresponse!.length; i++) {
+        print(accountresponse![i].aId);
+        print(accountresponse![i].aNumber);
+        print(accountresponse![i].aBalance);
+        print(accountresponse![i].uId);
+        print("----------------------------");
+      }
+
+      setState(() {
+        _loading = false;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      // appBar: AppBar(
+      //   title: Text("ListView.builder"),
+      // ),
+      body: Container(
+          child: Column(
+        children: [
+          _loading
+              ? Container(
+                  padding: EdgeInsets.all(200),
+                  child: CircularProgressIndicator(
+                    color: Colors.red,
+                  ))
+              : Container(
+                  width: 1200,
+                  height: 500,
+                  child: ListView.builder(
+                      itemCount: accountresponse!.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return ListTile(
+                            leading: Icon(Icons.supervised_user_circle_sharp),
+                            trailing: Container(
+                                child: Column(
+                              children: [
+                                TextButton(
+                                    onPressed: () {},
+                                    child: Icon(Icons.visibility,
+                                        color: Colors.black87))
+                              ],
+                            )),
+                            title: Text(accountresponse![index].aId.toString() +
+                                " " +
+                                accountresponse![index].aNumber.toString() +
+                                " " +
+                                accountresponse![index].aBalance.toString()));
+                      }),
+                )
+        ],
+      )),
+    );
   }
 }
