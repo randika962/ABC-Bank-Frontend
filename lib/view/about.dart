@@ -125,7 +125,7 @@ class _AboutState extends State<About> {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                UserDashboard(token: widget.token)));
+                                Dashboard(token: widget.token)));
                   },
                   child: Text(
                     "Back",
@@ -135,7 +135,8 @@ class _AboutState extends State<About> {
       ),
       body: Container(
         //color: Color.fromARGB(255, 105, 133, 226),
-        color: Color.fromARGB(255, 163, 176, 219),
+        // color: Color.fromARGB(255, 163, 176, 219),
+        color: Color.fromARGB(255, 5, 20, 66),
         child: Column(
           children: [
             Image.asset('lib/assets/Images/history.png'),
@@ -144,33 +145,33 @@ class _AboutState extends State<About> {
                 child: Text(
               "HISTORY",
               style: TextStyle(
-                  color: Color.fromARGB(255, 77, 13, 13), fontSize: 30),
+                  color: Color.fromARGB(255, 226, 210, 210), fontSize: 30),
             )),
             SizedBox(height: 10),
             Container(
                 child: Text(
               "The American Bank of Commerce first opened for business as Wolfforth State Bank on September 11, 1962 with James S. Moore as chairman of the board.  In January 1963, Wolfforth State Bank moved from temporary facilities to its first home in downtown Wolfforth, Texas.  Wolfforth State Bank changed its name to American Bank of Commerce at Wolfforth on June 1, 1972.",
-              style: TextStyle(color: Colors.black, fontSize: 15),
+              style: TextStyle(color: Color.fromARGB(255, 226, 210, 210), fontSize: 15),
             )),
             SizedBox(height: 20),
             Container(
                 child: Text(
               "EXPANSION AND GROWTH",
               style: TextStyle(
-                  color: Color.fromARGB(255, 77, 13, 13), fontSize: 30),
+                  color: Color.fromARGB(255, 226, 210, 210), fontSize: 30),
             )),
             SizedBox(height: 10),
             Container(
                 child: Text(
               "Over the years, the bank has focused on healthy expansion and growth.  American Bank of Commerce now operates four banking centers in Lubbock, Texas, six banking centers in Austin, Texas, two in the Dallas area, one in Colorado Springs, and one in Pueblo, Colorado. In March 2019, American Bank of Commerce purchased Infinity Mortgage Holdings, LLC as a wholly owned subsidiary of American Bank of Commerce.  The bank is excited to now offer a full suite of mortgage products, programs, and resources to our valued customers. In June 2020, American Bank of Commerce expanded its services once again with the launch of American Insurance Partners, LLC.  American Insurance Partners is an independent insurance agency located in Georgetown, Texas and provides a broad range of insurance products and services from the finest insurance carriers. In February 2022, American Bank of Commerce merged Infinity Mortgage into the bank, and our mortgage division now operates under the dba ABC Bank Home Loans.  The bank is proud to continue to extend its mortgage services with Mortgage Loan Originators serving Texas and Colorado offering Conventional, FHA and VA loan programs with competitive rates and fees.",
-              style: TextStyle(color: Colors.black, fontSize: 15),
+              style: TextStyle(color: Color.fromARGB(255, 226, 210, 210), fontSize: 15),
             )),
             SizedBox(height: 30),
             Container(
                 padding: EdgeInsets.only(top: 10),
                 child: Text(
                   "ABC @ 2022 All rights reserved",
-                  style: TextStyle(color: Colors.black, fontSize: 10),
+                  style: TextStyle(color: Color.fromARGB(255, 226, 210, 210), fontSize: 10),
                 )),
           ],
         ),

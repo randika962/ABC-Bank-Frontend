@@ -121,31 +121,32 @@ class _ViewTransactionState extends State<ViewTransaction> {
                   SizedBox(height: 20),
                   Image.asset('lib/assets/Images/ABC-logo.jpg'),
                   SizedBox(height: 150),
-                  Container(
-                    height: 50,
-                    width: 500,
-                    padding: EdgeInsets.only(left: 50, right: 50),
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary:
-                              Color.fromARGB(255, 209, 25, 25), // background
-                          onPrimary: Colors.white, // foreground
-                        ),
-                        onPressed: () {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content: Text(
-                                      'Transaction Deleted Successful !')));
-                        },
-                        child: Text("Delete Transaction")),
-                  ),
+                  // Container(
+                  //   height: 50,
+                  //   width: 500,
+                  //   padding: EdgeInsets.only(left: 50, right: 50),
+                  //   child: ElevatedButton(
+                  //       style: ElevatedButton.styleFrom(
+                  //         primary:
+                  //             Color.fromARGB(255, 209, 25, 25), // background
+                  //         onPrimary: Colors.white, // foreground
+                  //       ),
+                  //       onPressed: () {
+                  //         ScaffoldMessenger.of(context).showSnackBar(
+                  //             const SnackBar(
+                  //                 content: Text(
+                  //                     'Transaction Deleted Successful !')));
+                  //       },
+                  //       child: Text("Delete Transaction")),
+                  // ),
                 ],
               )),
         ),
         Expanded(
           flex: 9,
           child: Container(
-            color: Color.fromARGB(255, 163, 176, 219),
+            // color: Color.fromARGB(255, 163, 176, 219),
+            color: Color.fromARGB(255, 5, 20, 66),
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -161,7 +162,7 @@ class _ViewTransactionState extends State<ViewTransaction> {
                       padding: EdgeInsets.only(top: 10),
                       child: Text(
                         "ABC @ 2022 All rights reserved",
-                        style: TextStyle(color: Colors.black, fontSize: 10),
+                        style: TextStyle(color: Color.fromARGB(255, 226, 210, 210), fontSize: 10),
                       )),
 
                   // SizedBox(height: 30),

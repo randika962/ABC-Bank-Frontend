@@ -139,7 +139,8 @@ class _RegistrationState extends State<Registration> {
       ),
       body: Container(
         //color: Color.fromARGB(255, 105, 133, 226),
-        color: Color.fromARGB(255, 163, 176, 219),
+        // color: Color.fromARGB(255, 163, 176, 219),
+        color: Color.fromARGB(255, 5, 20, 66),
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -159,11 +160,11 @@ class _RegistrationState extends State<Registration> {
                     fontSize: 15,
                   ),
                   decoration: InputDecoration(
-                    labelText: "Enter Your First Name",
-                    labelStyle: TextStyle(color: Colors.black),
+                    hintText: "Enter Your First Name",
+                    hintStyle: TextStyle(color: Colors.black),
                     counterText: 'This Field Must be Required !',
                     counterStyle: TextStyle(
-                        color: Color.fromARGB(255, 207, 11, 11), fontSize: 12),
+                        color: Color.fromARGB(255, 251, 255, 12), fontSize: 12),
                     suffixIcon:
                         const Icon(Icons.account_box, color: Colors.grey),
                     fillColor: Colors.blueGrey[50],
@@ -191,11 +192,11 @@ class _RegistrationState extends State<Registration> {
                     fontSize: 15,
                   ),
                   decoration: InputDecoration(
-                    labelText: "Enter Your Last Name",
-                    labelStyle: TextStyle(color: Colors.black),
+                    hintText: "Enter Your Last Name",
+                    hintStyle: TextStyle(color: Colors.black),
                     counterText: 'This Field Must be Required !',
                     counterStyle: TextStyle(
-                        color: Color.fromARGB(255, 207, 11, 11), fontSize: 12),
+                        color: Color.fromARGB(255, 251, 255, 12), fontSize: 12),
                     suffixIcon: const Icon(Icons.people, color: Colors.grey),
                     fillColor: Colors.blueGrey[50],
                     filled: true,
@@ -222,11 +223,11 @@ class _RegistrationState extends State<Registration> {
                     fontSize: 15,
                   ),
                   decoration: InputDecoration(
-                    labelText: "Enter Your Address",
-                    labelStyle: TextStyle(color: Colors.black),
+                    hintText: "Enter Your Address",
+                    hintStyle: TextStyle(color: Colors.black),
                     counterText: 'This Field Must be Required !',
                     counterStyle: TextStyle(
-                        color: Color.fromARGB(255, 207, 11, 11), fontSize: 12),
+                        color: Color.fromARGB(255, 251, 255, 12), fontSize: 12),
                     suffixIcon:
                         const Icon(Icons.location_city, color: Colors.grey),
                     fillColor: Colors.blueGrey[50],
@@ -254,12 +255,12 @@ class _RegistrationState extends State<Registration> {
                     fontSize: 15,
                   ),
                   decoration: InputDecoration(
-                    labelText: "Enter Your Email",
-                    labelStyle: TextStyle(color: Colors.black),
+                    hintText: "Enter Your Email",
+                    hintStyle: TextStyle(color: Colors.black),
                     counterText:
                         'This Field Must be Required ! Must be Contain "@" and ".com"',
                     counterStyle: TextStyle(
-                        color: Color.fromARGB(255, 207, 11, 11), fontSize: 12),
+                        color: Color.fromARGB(255, 251, 255, 12), fontSize: 12),
                     suffixIcon: const Icon(Icons.email, color: Colors.grey),
                     fillColor: Colors.blueGrey[50],
                     filled: true,
@@ -287,12 +288,12 @@ class _RegistrationState extends State<Registration> {
                   ),
                   obscureText: true,
                   decoration: InputDecoration(
-                    labelText: "Enter Your Password",
-                    labelStyle: TextStyle(color: Colors.black),
+                    hintText: "Enter Your Password",
+                    hintStyle: TextStyle(color: Colors.black),
                     counterText:
                         'This Field Must be Required ! Must be "8 Characters"',
                     counterStyle: TextStyle(
-                        color: Color.fromARGB(255, 207, 11, 11), fontSize: 12),
+                        color: Color.fromARGB(255, 251, 255, 12), fontSize: 12),
                     suffixIcon: const Icon(Icons.lock, color: Colors.grey),
                     fillColor: Colors.blueGrey[50],
                     filled: true,
@@ -327,7 +328,7 @@ class _RegistrationState extends State<Registration> {
                     hintStyle: TextStyle(color: Colors.black),
                     counterText: 'This Field Must be Required !',
                     counterStyle: TextStyle(
-                        color: Color.fromARGB(255, 207, 11, 11), fontSize: 12),
+                        color: Color.fromARGB(255, 251, 255, 12), fontSize: 12),
                     suffixIcon: const Icon(Icons.supervised_user_circle_sharp,
                         color: Colors.grey),
                     fillColor: Colors.blueGrey[50],
@@ -352,6 +353,10 @@ class _RegistrationState extends State<Registration> {
                 width: 500,
                 padding: EdgeInsets.only(top: 50),
                 child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                                primary: Colors.deepPurple, // background
+                                onPrimary: Colors.white, // foreground
+                              ),
                     onPressed: () {
                       // showAlertDialog(context);
                       print("User Email : " + _email);
@@ -382,7 +387,7 @@ class _RegistrationState extends State<Registration> {
                   padding: EdgeInsets.only(top: 10),
                   child: Text(
                     "ABC @ 2022 All rights reserved",
-                    style: TextStyle(color: Colors.black, fontSize: 10),
+                    style: TextStyle(color: Color.fromARGB(255, 226, 210, 210), fontSize: 10),
                   )),
               // SizedBox(height: 20),
             ]),

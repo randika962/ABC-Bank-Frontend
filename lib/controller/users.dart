@@ -57,6 +57,38 @@ class _UserzState extends State<Userz> {
     '10',
   ];
 
+  Userresponse? userresponse;
+  bool _loading = false;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    deleteByIdUser();
+  }
+
+  void  deleteByIdUser() async {
+    setState(() {
+      _loading = true;
+    });
+    print("${widget.token}");
+    var response = await http.get(
+      Uri.parse("http://localhost:8080/bankusersdelete/{uId}"),
+      headers: {"Authorization": "Bearer ${widget.token}"},
+    );
+    print("Status Code");
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      userresponse = userresponseFromJson(response.body);
+      setState(() {});
+        print("Delete User");
+        print("----------------------------");
+
+      setState(() {
+        _loading = false;
+      });
+    }
+  }
+
   // var body = {};
   // Userresponse? userresponse;
   // bool _loading = false;
@@ -220,6 +252,8 @@ class _UserzState extends State<Userz> {
                               onPrimary: Colors.white, // foreground
                             ),
                             onPressed: () {
+                              deleteByIdUser();
+
                               ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                       content:
@@ -232,7 +266,8 @@ class _UserzState extends State<Userz> {
           Expanded(
             flex: 9,
             child: Container(
-              color: Color.fromARGB(255, 163, 176, 219),
+              // color: Color.fromARGB(255, 163, 176, 219),
+              color: Color.fromARGB(255, 5, 20, 66),
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -248,7 +283,7 @@ class _UserzState extends State<Userz> {
                         padding: EdgeInsets.only(top: 10),
                         child: Text(
                           "ABC @ 2022 All rights reserved",
-                          style: TextStyle(color: Colors.black, fontSize: 10),
+                          style: TextStyle(color: Color.fromARGB(255, 226, 210, 210), fontSize: 10),
                         )),
 
                     // Container(

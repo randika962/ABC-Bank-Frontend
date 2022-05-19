@@ -120,7 +120,7 @@ class _CreditCardState extends State<CreditCard> {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                UserDashboard(token: widget.token)));
+                                Dashboard(token: widget.token)));
                   },
                   child: Text(
                     "Back",
@@ -129,7 +129,8 @@ class _CreditCardState extends State<CreditCard> {
         ],
       ),
       body: Container(
-        color: Color.fromARGB(255, 163, 176, 219),
+        // color: Color.fromARGB(255, 163, 176, 219),
+        color: Color.fromARGB(255, 5, 20, 66),
         child: Column(
           children: [
             SizedBox(height: 40),
@@ -137,13 +138,13 @@ class _CreditCardState extends State<CreditCard> {
                 child: Text(
               "Featured Credit Cards",
               style: TextStyle(
-                  color: Color.fromARGB(255, 77, 13, 13), fontSize: 30),
+                  color: Color.fromARGB(255, 226, 210, 210), fontSize: 30),
             )),
             SizedBox(height: 10),
             Container(
                 child: Text(
               "Explore Cities credit card offers, featuring exclusive perks and benefits to reward your spending. From cash back and travel cards, to low introductory APR on balance transfers, Citi has the right credit card for you. Browse our full range of credit card categories, or use Citi's card comparison tool to discover features and help you choose the best credit card to fit your needs. Simply check the box next to your 3 favorite cards to compare the various benefits, rewards, fees and offers. When you're ready, select the credit card you would like to learn more about and apply online.",
-              style: TextStyle(color: Colors.black, fontSize: 15),
+              style: TextStyle(color: Color.fromARGB(255, 226, 210, 210), fontSize: 15),
             )),
             SizedBox(height: 30),
             Image.asset('lib/assets/Images/credit.png'),
@@ -151,7 +152,7 @@ class _CreditCardState extends State<CreditCard> {
                 padding: EdgeInsets.only(top: 10),
                 child: Text(
                   "ABC @ 2022 All rights reserved",
-                  style: TextStyle(color: Colors.black, fontSize: 10),
+                  style: TextStyle(color: Color.fromARGB(255, 226, 210, 210), fontSize: 10),
                 )),
           ],
         ),

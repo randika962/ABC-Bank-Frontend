@@ -5,6 +5,8 @@ import 'package:signapp/dashboard.dart';
 import 'package:signapp/userdashboard.dart';
 import 'package:signapp/employeedashboard.dart';
 import 'package:signapp/main.dart';
+import 'package:signapp/model/transaction_response.dart';
+import 'package:http/http.dart' as http;
 
 // class MyApp extends StatelessWidget {
 //   const MyApp({Key? key}) : super(key: key);
@@ -45,14 +47,14 @@ class _TransactionState extends State<Transaction> {
   String _sid = "";
   String _did = "";
 
-  String dropdownvalue = 'Withdraw fund';
+  // String dropdownvalue = 'Withdraw fund';
 
-  // List of items in our dropdown menu
-  var items = [
-    'Withdraw fund',
-    'Deposit fund',
-    'Transaction fund',
-  ];
+  // // List of items in our dropdown menu
+  // var items = [
+  //   'Withdraw fund',
+  //   'Deposit fund',
+  //   'Transaction fund',
+  // ];
 
   // String _utype = "";
 
@@ -75,6 +77,124 @@ class _TransactionState extends State<Transaction> {
   var _amscontroller = TextEditingController();
   var _sourcontroller = TextEditingController();
   var _descontroller = TextEditingController();
+
+  Transactionresponse? transactionresponse;
+  bool _loading = false;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getByIdTransactions();
+    calwithdraw();
+    caldeposit();
+    caltransfer();
+  }
+
+  void calwithdraw() async {
+    setState(() {
+      _loading = true;
+    });
+    print("${widget.token}");
+    var response = await http.get(
+      Uri.parse("http://localhost:8080/withdraw"),
+      headers: {"Authorization": "Bearer ${widget.token}"},
+    );
+    print("Status Code");
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      transactionresponse =
+          transactionresponseFromJson(response.body) as Transactionresponse?;
+      setState(() {});
+      print(transactionresponse!.tId);
+      print("Sucsess Withdraw");
+      print("----------------------------");
+
+      setState(() {
+        _loading = false;
+      });
+    }
+  }
+
+  void caldeposit() async {
+    setState(() {
+      _loading = true;
+    });
+    print("${widget.token}");
+    var response = await http.post(
+      Uri.parse("http://localhost:8080/deposit"),
+      headers: {"Authorization": "Bearer ${widget.token}"},
+    );
+    print("Status Code");
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      transactionresponse =
+          transactionresponseFromJson(response.body) as Transactionresponse?;
+      setState(() {});
+      print(transactionresponse!.tId);
+      print("Sucsess Deposit");
+      print("----------------------------");
+
+      setState(() {
+        _loading = false;
+      });
+    }
+  }
+
+  void caltransfer() async {
+    setState(() {
+      _loading = true;
+    });
+    print("${widget.token}");
+    var response = await http.post(
+      Uri.parse("http://localhost:8080/transfer"),
+      headers: {"Authorization": "Bearer ${widget.token}"},
+    );
+    print("Status Code");
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      transactionresponse =
+          transactionresponseFromJson(response.body) as Transactionresponse?;
+      setState(() {});
+      print(transactionresponse!.tId);
+      print("Sucsess Transfer");
+      print("----------------------------");
+
+      setState(() {
+        _loading = false;
+      });
+    }
+  }
+
+  void getByIdTransactions() async {
+    setState(() {
+      _loading = true;
+    });
+    print("${widget.token}");
+    var response = await http.get(
+      Uri.parse("http://localhost:8080/bankstransaction/ABC Transaction/{id}"),
+      headers: {"Authorization": "Bearer ${widget.token}"},
+    );
+    print("Status Code");
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      transactionresponse =
+          transactionresponseFromJson(response.body) as Transactionresponse?;
+      setState(() {});
+      print(transactionresponse!.tId);
+      print(transactionresponse!.transacAmount);
+      print(transactionresponse!.transacDecription);
+      print(transactionresponse!.transacType);
+      print(transactionresponse!.transacTime);
+      print(transactionresponse!.aId);
+      print(transactionresponse!.sourceAccId);
+      print(transactionresponse!.destinationAccId);
+      print("----------------------------");
+
+      setState(() {
+        _loading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -221,40 +341,40 @@ class _TransactionState extends State<Transaction> {
                             },
                           ),
                         ),
-                        SizedBox(height: 20),
-                        Container(
-                          height: 50,
-                          width: 500,
-                          padding: EdgeInsets.only(left: 50, right: 50),
-                          child: DropdownButton(
-                            // Initial Value
-                            value: dropdownvalue,
+                        // SizedBox(height: 20),
+                        // Container(
+                        //   height: 50,
+                        //   width: 500,
+                        //   padding: EdgeInsets.only(left: 50, right: 50),
+                        //   child: DropdownButton(
+                        //     // Initial Value
+                        //     value: dropdownvalue,
 
-                            // Down Arrow Icon
-                            icon: const Icon(Icons.keyboard_arrow_down),
+                        //     // Down Arrow Icon
+                        //     icon: const Icon(Icons.keyboard_arrow_down),
 
-                            // Array list of items
-                            items: items.map((String items) {
-                              return DropdownMenuItem(
-                                value: items,
-                                child: Text(items),
-                              );
-                            }).toList(),
-                            // After selecting the desired option,it will
-                            // change button value to selected value
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                dropdownvalue = newValue!;
-                                _ttype = dropdownvalue;
-                              });
-                            },
-                            dropdownColor: Colors.deepPurple,
-                            style: TextStyle(
-                              color: Colors.white,
-                              //backgroundColor: Colors.white,
-                            ),
-                          ),
-                        ),
+                        //     // Array list of items
+                        //     items: items.map((String items) {
+                        //       return DropdownMenuItem(
+                        //         value: items,
+                        //         child: Text(items),
+                        //       );
+                        //     }).toList(),
+                        //     // After selecting the desired option,it will
+                        //     // change button value to selected value
+                        //     onChanged: (String? newValue) {
+                        //       setState(() {
+                        //         dropdownvalue = newValue!;
+                        //         _ttype = dropdownvalue;
+                        //       });
+                        //     },
+                        //     dropdownColor: Colors.deepPurple,
+                        //     style: TextStyle(
+                        //       color: Colors.white,
+                        //       //backgroundColor: Colors.white,
+                        //     ),
+                        //   ),
+                        // ),
                         SizedBox(height: 20),
                         Container(
                           padding: EdgeInsets.only(left: 50, right: 50),
@@ -323,30 +443,36 @@ class _TransactionState extends State<Transaction> {
                             },
                           ),
                         ),
-                        SizedBox(height: 100),
+                        SizedBox(height: 60),
                         Container(
                           height: 50,
                           width: 500,
                           padding: EdgeInsets.only(left: 50, right: 50),
                           child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.deepPurple, // background
+                                onPrimary: Colors.white, // foreground
+                              ),
                               onPressed: () {
-                                print("------------------------");
-                                print("Transaction Successful !!!");
-                                print("------------------------");
-                                print("Your Transaction ID is : ${_tid}");
-                                print(
-                                    "Your Transaction Amount is : ${_amount}");
-                                print(_ttype);
-                                print("Your Source Account ID is : ${_sid}");
-                                print(
-                                    "Your Destination Account ID is : ${_did}");
+                                calwithdraw();
+
+                                // print("------------------------");
+                                // print("Transaction Successful !!!");
+                                // print("------------------------");
+                                // print("Your Transaction ID is : ${_tid}");
+                                // print(
+                                //     "Your Transaction Amount is : ${_amount}");
+                                // print(_ttype);
+                                // print("Your Source Account ID is : ${_sid}");
+                                // print(
+                                //     "Your Destination Account ID is : ${_did}");
 
                                 ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
                                         content:
-                                            Text('Transaction Successful !')));
+                                            Text('Withdraw Successful !')));
                               },
-                              child: Text("Submit")),
+                              child: Text("Withdraw")),
                         ),
                         SizedBox(height: 30),
                         Container(
@@ -360,19 +486,66 @@ class _TransactionState extends State<Transaction> {
                                 onPrimary: Colors.white, // foreground
                               ),
                               onPressed: () {
-                                _transcontroller.clear();
-                                _amscontroller.clear();
-                                _sourcontroller.clear();
-                                _descontroller.clear();
+                                caldeposit();
+
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        content: Text('Deposit Successful !')));
+                                // _transcontroller.clear();
+                                // _amscontroller.clear();
+                                // _sourcontroller.clear();
+                                // _descontroller.clear();
                               },
-                              child: Text("Clear")),
+                              child: Text("Deposit")),
+                        ),
+                        SizedBox(height: 30),
+                        Container(
+                          height: 50,
+                          width: 500,
+                          padding: EdgeInsets.only(left: 50, right: 50),
+                          child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                primary: Color.fromARGB(
+                                    255, 22, 112, 14), // background
+                                onPrimary: Colors.white, // foreground
+                              ),
+                              onPressed: () {
+                                caltransfer();
+
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        content:
+                                            Text('Transfer Successful !')));
+                                // _transcontroller.clear();
+                                // _amscontroller.clear();
+                                // _sourcontroller.clear();
+                                // _descontroller.clear();
+                              },
+                              child: Text("Transfer")),
+                        ),
+                        SizedBox(height: 30),
+                        Container(
+                          height: 50,
+                          width: 500,
+                          padding: EdgeInsets.only(left: 50, right: 50),
+                          child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                primary: Color.fromARGB(
+                                    255, 63, 184, 189), // background
+                                onPrimary: Colors.white, // foreground
+                              ),
+                              onPressed: () {
+                                getByIdTransactions();
+                              },
+                              child: Text("View")),
                         ),
                       ]),
                 )),
             Expanded(
               flex: 9,
               child: Container(
-                color: Color.fromARGB(255, 163, 176, 219),
+                // color: Color.fromARGB(255, 163, 176, 219),
+                color: Color.fromARGB(255, 5, 20, 66),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,

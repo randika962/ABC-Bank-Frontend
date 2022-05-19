@@ -361,7 +361,8 @@ class _EmployeeDashboardState extends State<EmployeeDashboard> {
               flex: 9,
               child: Container(
                 //color: Color.fromARGB(255, 105, 133, 226),
-                color: Color.fromARGB(255, 163, 176, 219),
+                // color: Color.fromARGB(255, 163, 176, 219),
+                color: Color.fromARGB(255, 5, 20, 66),
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -397,13 +398,13 @@ class _EmployeeDashboardState extends State<EmployeeDashboard> {
                           children: [
                             Container(
                               alignment: Alignment.center,
-                              color: Color.fromARGB(255, 163, 176, 219),
+                              color: Color.fromARGB(255, 5, 20, 66),
                               height: 160,
                               width: 30,
                             ),
                             Container(
                               alignment: Alignment.center,
-                              color: Color.fromARGB(255, 253, 164, 31),
+                              color: Color.fromARGB(255, 230, 150, 30),
                               height: 160,
                               width: 300,
                               child: Text(
@@ -416,13 +417,13 @@ class _EmployeeDashboardState extends State<EmployeeDashboard> {
                             ),
                             Container(
                               alignment: Alignment.center,
-                              color: Color.fromARGB(255, 163, 176, 219),
+                              color: Color.fromARGB(255, 5, 20, 66),
                               height: 160,
                               width: 30,
                             ),
                             Container(
                               alignment: Alignment.center,
-                              color: Color.fromARGB(255, 78, 216, 163),
+                              color: Color.fromARGB(255, 61, 151, 117),
                               height: 160,
                               width: 300,
                               child: Text(
@@ -435,13 +436,13 @@ class _EmployeeDashboardState extends State<EmployeeDashboard> {
                             ),
                             Container(
                               alignment: Alignment.center,
-                              color: Color.fromARGB(255, 163, 176, 219),
+                              color: Color.fromARGB(255, 5, 20, 66),
                               height: 160,
                               width: 30,
                             ),
                             Container(
                               alignment: Alignment.center,
-                              color: Color.fromARGB(255, 187, 94, 94),
+                              color: Color.fromARGB(255, 189, 49, 49),
                               height: 160,
                               width: 300,
                               child: Text(
@@ -459,7 +460,7 @@ class _EmployeeDashboardState extends State<EmployeeDashboard> {
                           padding: EdgeInsets.only(top: 40),
                           child: Text(
                             "ABC @ 2022 All rights reserved",
-                            style: TextStyle(color: Colors.black, fontSize: 10),
+                            style: TextStyle(color: Color.fromARGB(255, 226, 210, 210), fontSize: 10),
                           )),
                     ]),
               ))

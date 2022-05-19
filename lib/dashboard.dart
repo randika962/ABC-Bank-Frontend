@@ -6,8 +6,8 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:signapp/employeedashboard.dart';
 import 'package:signapp/userdashboard.dart';
-import 'package:fl_chart/fl_chart.dart';
-import 'package:math_expressions/math_expressions.dart';
+// import 'package:fl_chart/fl_chart.dart';
+// import 'package:math_expressions/math_expressions.dart';
 import 'controller/indicator.dart';
 import 'package:signapp/view/about.dart';
 import 'package:signapp/controller/account.dart';
@@ -366,7 +366,8 @@ class _DashboardState extends State<Dashboard> {
                 flex: 9,
                 child: Container(
                   //   //color: Color.fromARGB(255, 105, 133, 226),
-                  color: Color.fromARGB(255, 163, 176, 219),
+                  // color: Color.fromARGB(255, 163, 176, 219),
+                  color: Color.fromARGB(255, 5, 20, 66),
                   width: MediaQuery.of(context).size.width,
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -403,45 +404,45 @@ class _DashboardState extends State<Dashboard> {
                             children: [
                               Container(
                                 alignment: Alignment.center,
-                                color: Color.fromARGB(255, 163, 176, 219),
+                                color: Color.fromARGB(255, 5, 20, 66),
                                 height: 160,
                                 width: 30,
+                              ),
+                              Container(
+                                alignment: Alignment.center,
+                                color: Color.fromARGB(255, 230, 150, 30),
+                                height: 160,
+                                width: 300,
+                                child: Text(
+                                  r"Balance $",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 30,
+                                  ),
+                                ),
                               ),
                               // Container(
-                              //   alignment: Alignment.center,
-                              //   color: Color.fromARGB(255, 253, 164, 31),
-                              //   height: 160,
-                              //   width: 300,
-                              //   child: Text(
-                              //     r"Balance $",
-                              //     style: TextStyle(
-                              //       color: Colors.white,
-                              //       fontSize: 30,
-                              //     ),
-                              //   ),
+                              // decoration: BoxDecoration(
+                              //     color: Colors.blue,
+                              //     borderRadius: BorderRadius.circular(30),
+                              //     boxShadow: [
+                              //       BoxShadow(
+                              //           color: Colors.deepPurple,
+                              //           spreadRadius: 10,
+                              //           blurRadius: 20),
+                              //     ]),
+                              // child: PieChartSample2(),
+                              // width: 300,
                               // ),
                               Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.blue,
-                                  borderRadius: BorderRadius.circular(30),
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.deepPurple,
-                                        spreadRadius: 10,
-                                        blurRadius: 20),
-                                  ]),
-                              child: PieChartSample2(),
-                              width: 300,
-                              ),
-                              Container(
                                 alignment: Alignment.center,
-                                color: Color.fromARGB(255, 163, 176, 219),
+                                color: Color.fromARGB(255, 5, 20, 66),
                                 height: 160,
                                 width: 30,
                               ),
                               Container(
                                 alignment: Alignment.center,
-                                color: Color.fromARGB(255, 78, 216, 163),
+                                color: Color.fromARGB(255, 61, 151, 117),
                                 height: 160,
                                 width: 300,
                                 child: Text(
@@ -454,13 +455,13 @@ class _DashboardState extends State<Dashboard> {
                               ),
                               Container(
                                 alignment: Alignment.center,
-                                color: Color.fromARGB(255, 163, 176, 219),
+                                color: Color.fromARGB(255, 5, 20, 66),
                                 height: 160,
                                 width: 30,
                               ),
                               Container(
                                 alignment: Alignment.center,
-                                color: Color.fromARGB(255, 187, 94, 94),
+                                color: Color.fromARGB(255, 189, 49, 49),
                                 height: 160,
                                 width: 300,
                                 child: Text(
@@ -479,7 +480,7 @@ class _DashboardState extends State<Dashboard> {
                             child: Text(
                               "ABC @ 2022 All rights reserved",
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 10),
+                                  TextStyle(color: Color.fromARGB(255, 226, 210, 210), fontSize: 10),
                             )),
                       ]),
                 )),
@@ -488,118 +489,118 @@ class _DashboardState extends State<Dashboard> {
   }
 }
 
-class PieChartSample2 extends StatefulWidget {
-  const PieChartSample2({Key? key}) : super(key: key);
+// class PieChartSample2 extends StatefulWidget {
+//   const PieChartSample2({Key? key}) : super(key: key);
 
-  @override
-  State<StatefulWidget> createState() => PieChart2State();
-}
+//   @override
+//   State<StatefulWidget> createState() => PieChart2State();
+// }
 
-class PieChart2State extends State {
-  int touchedIndex = -1;
+// class PieChart2State extends State {
+//   int touchedIndex = -1;
 
-  @override
-  Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 1.3,
-      child: Card(
-        color: Colors.white,
-        child: Row(
-          children: <Widget>[
-            Container(
-                child: Column(
-              children: [
-                Expanded(
-                  child: AspectRatio(
-                    aspectRatio: 1,
-                    child: PieChart(
-                      PieChartData(
-                          pieTouchData: PieTouchData(touchCallback:
-                              (FlTouchEvent event, pieTouchResponse) {
-                            setState(() {
-                              if (!event.isInterestedForInteractions ||
-                                  pieTouchResponse == null ||
-                                  pieTouchResponse.touchedSection == null) {
-                                touchedIndex = -1;
-                                return;
-                              }
-                              touchedIndex = pieTouchResponse
-                                  .touchedSection!.touchedSectionIndex;
-                            });
-                          }),
-                          borderData: FlBorderData(
-                            show: false,
-                          ),
-                          sectionsSpace: 0,
-                          centerSpaceRadius: 40,
-                          sections: showingSections()),
-                    ),
-                  ),
-                ),
-                Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const <Widget>[
-                    Indicator(
-                      color: Color.fromARGB(255, 59, 52, 252),
-                      text: 'Employees',
-                      isSquare: true,
-                    ),
-                    SizedBox(
-                      height: 4,
-                    ),
-                    Indicator(
-                      color: Color.fromARGB(255, 224, 232, 0),
-                      text: 'Customers',
-                      isSquare: true,
-                    ),
-                    SizedBox(
-                      height: 4,
-                    ),
-                  ],
-                ),
-                const SizedBox(),
-              ],
-            ))
-          ],
-        ),
-      ),
-    );
-  }
+//   @override
+//   Widget build(BuildContext context) {
+//     return AspectRatio(
+//       aspectRatio: 1.3,
+//       child: Card(
+//         color: Colors.white,
+//         child: Row(
+//           children: <Widget>[
+//             Container(
+//                 child: Column(
+//               children: [
+//                 Expanded(
+//                   child: AspectRatio(
+//                     aspectRatio: 1,
+//                     child: PieChart(
+//                       PieChartData(
+//                           pieTouchData: PieTouchData(touchCallback:
+//                               (FlTouchEvent event, pieTouchResponse) {
+//                             setState(() {
+//                               if (!event.isInterestedForInteractions ||
+//                                   pieTouchResponse == null ||
+//                                   pieTouchResponse.touchedSection == null) {
+//                                 touchedIndex = -1;
+//                                 return;
+//                               }
+//                               touchedIndex = pieTouchResponse
+//                                   .touchedSection!.touchedSectionIndex;
+//                             });
+//                           }),
+//                           borderData: FlBorderData(
+//                             show: false,
+//                           ),
+//                           sectionsSpace: 0,
+//                           centerSpaceRadius: 40,
+//                           sections: showingSections()),
+//                     ),
+//                   ),
+//                 ),
+//                 Column(
+//                   mainAxisSize: MainAxisSize.max,
+//                   mainAxisAlignment: MainAxisAlignment.end,
+//                   crossAxisAlignment: CrossAxisAlignment.start,
+//                   children: const <Widget>[
+//                     Indicator(
+//                       color: Color.fromARGB(255, 59, 52, 252),
+//                       text: 'Employees',
+//                       isSquare: true,
+//                     ),
+//                     SizedBox(
+//                       height: 4,
+//                     ),
+//                     Indicator(
+//                       color: Color.fromARGB(255, 224, 232, 0),
+//                       text: 'Customers',
+//                       isSquare: true,
+//                     ),
+//                     SizedBox(
+//                       height: 4,
+//                     ),
+//                   ],
+//                 ),
+//                 const SizedBox(),
+//               ],
+//             ))
+//           ],
+//         ),
+//       ),
+//     );
+//   }
 
-  List<PieChartSectionData> showingSections() {
-    return List.generate(2, (i) {
-      final isTouched = i == touchedIndex;
-      final fontSize = isTouched ? 25.0 : 16.0;
-      final radius = isTouched ? 60.0 : 50.0;
-      switch (i) {
-        case 0:
-          return PieChartSectionData(
-            color: Color.fromARGB(255, 59, 52, 252),
-            value: 10,
-            title: '10%',
-            radius: radius,
-            titleStyle: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.bold,
-                color: const Color(0xffffffff)),
-          );
-        case 1:
-          return PieChartSectionData(
-            color: Color.fromARGB(255, 224, 232, 0),
-            value: 90,
-            title: '90%',
-            radius: radius,
-            titleStyle: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.bold,
-                color: const Color(0xffffffff)),
-          );
+//   List<PieChartSectionData> showingSections() {
+//     return List.generate(2, (i) {
+//       final isTouched = i == touchedIndex;
+//       final fontSize = isTouched ? 25.0 : 16.0;
+//       final radius = isTouched ? 60.0 : 50.0;
+//       switch (i) {
+//         case 0:
+//           return PieChartSectionData(
+//             color: Color.fromARGB(255, 59, 52, 252),
+//             value: 10,
+//             title: '10%',
+//             radius: radius,
+//             titleStyle: TextStyle(
+//                 fontSize: fontSize,
+//                 fontWeight: FontWeight.bold,
+//                 color: const Color(0xffffffff)),
+//           );
+//         case 1:
+//           return PieChartSectionData(
+//             color: Color.fromARGB(255, 224, 232, 0),
+//             value: 90,
+//             title: '90%',
+//             radius: radius,
+//             titleStyle: TextStyle(
+//                 fontSize: fontSize,
+//                 fontWeight: FontWeight.bold,
+//                 color: const Color(0xffffffff)),
+//           );
 
-        default:
-          throw Error();
-      }
-    });
-  }
-}
+//         default:
+//           throw Error();
+//       }
+//     });
+//   }
+// }

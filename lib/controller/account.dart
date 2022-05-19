@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -55,6 +57,65 @@ class _AccountState extends State<Account> {
   var _acccontroller = TextEditingController();
   var _usercontroller = TextEditingController();
   var _numcontroller = TextEditingController();
+
+
+
+  Accountresponse? accountresponse;
+  bool _loading = false;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    createaccount();
+    deleteByIdAccount();
+  }
+
+  void createaccount() async {
+    setState(() {
+      _loading = true;
+    });
+    var body = {};
+
+    body["aId"] = _aid;
+    body["uId"] = _uid;
+    body["aNumber"] = _ano;
+    String bodyjson = json.encode(body);
+
+    var response = await http.post(
+      Uri.parse("http://localhost:8080/createbankaccount"),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer  ${widget.token}"
+      },
+      body: bodyjson,
+    );
+    print("statuscode");
+    print(response.statusCode);
+    print(widget.token);
+  }
+
+  void  deleteByIdAccount() async {
+    setState(() {
+      _loading = true;
+    });
+    print("${widget.token}");
+    var response = await http.get(
+      Uri.parse("http://localhost:8080/bankaccountdelete/{aId}"),
+      headers: {"Authorization": "Bearer ${widget.token}"},
+    );
+    print("Status Code");
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      accountresponse = accountresponseFromJson(response.body) as Accountresponse?;
+      setState(() {});
+        print("Delete Account");
+        print("----------------------------");
+
+      setState(() {
+        _loading = false;
+      });
+    }
+  }
 
   // var body = {};
   // Accountresponse? accountresponse;
@@ -278,8 +339,14 @@ class _AccountState extends State<Account> {
                         width: 500,
                         padding: EdgeInsets.only(left: 50, right: 50),
                         child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.deepPurple, // background
+                              onPrimary: Colors.white, // foreground
+                            ),
                             onPressed: () {
                               // getAllAccount();
+
+                              createaccount();
 
                               print("------------------------");
                               print("Account Information Added Successful !!!");
@@ -326,6 +393,8 @@ class _AccountState extends State<Account> {
                               onPrimary: Colors.white, // foreground
                             ),
                             onPressed: () {
+                              deleteByIdAccount();
+
                               ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                       content: Text(
@@ -338,7 +407,8 @@ class _AccountState extends State<Account> {
           Expanded(
             flex: 9,
             child: Container(
-              color: Color.fromARGB(255, 163, 176, 219),
+              // color: Color.fromARGB(255, 163, 176, 219),
+              color: Color.fromARGB(255, 5, 20, 66),
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -354,7 +424,9 @@ class _AccountState extends State<Account> {
                         padding: EdgeInsets.only(top: 10),
                         child: Text(
                           "ABC @ 2022 All rights reserved",
-                          style: TextStyle(color: Colors.black, fontSize: 10),
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 226, 210, 210),
+                              fontSize: 10),
                         )),
                     // Padding(
                     //   padding:

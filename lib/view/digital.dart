@@ -119,7 +119,7 @@ class _DigitalState extends State<Digital> {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                UserDashboard(token: widget.token)));
+                                Dashboard(token: widget.token)));
                   },
                   child: Text(
                     "Back",
@@ -128,7 +128,8 @@ class _DigitalState extends State<Digital> {
         ],
       ),
       body: Container(
-        color: Color.fromARGB(255, 163, 176, 219),
+        // color: Color.fromARGB(255, 163, 176, 219),
+        color: Color.fromARGB(255, 5, 20, 66),
         child: Column(
           children: [
             SizedBox(height: 40),
@@ -136,32 +137,32 @@ class _DigitalState extends State<Digital> {
                 child: Text(
               "ABC Digital",
               style: TextStyle(
-                  color: Color.fromARGB(255, 77, 13, 13), fontSize: 30),
+                  color: Color.fromARGB(255, 226, 210, 210), fontSize: 30),
             )),
             SizedBox(height: 10),
             Container(
                 child: Text(
               "Bank ABC offers retail banking products and services through its subsidiaries in Algeria, Egypt, Jordan and Tunisia. Led by the Digital Banking and Retail department at the head office in Bahrain, the Bank’s retail business has established a significant distribution footprint and has invested substantially in technology to offer diversified regional and segment specific products and service delivery across all the geographies. Bank ABC offers traditional and bespoke products and services through a team of well-trained and customer-centric staff and on a variety of distribution platforms. The Retail Banking teams are committed to provide impeccable customer experience across a variety of service platforms and customer touch points. By developing holistic personalised financial solutions built around customer needs and aspirations, our products and services are lifestyle aligned enabling our customers to realize their financial goals. ​Bank ABC has embraced digital in a number of innovative initiatives. With ABC Digital, the Bank’s state-of the art online banking platform, it has successfully implemented one of the most vital phases of its digital strategy that aims at providing seamless and comprehensive online banking services to clients.",
-              style: TextStyle(color: Colors.black, fontSize: 15),
+              style: TextStyle(color: Color.fromARGB(255, 226, 210, 210), fontSize: 15),
             )),
             SizedBox(height: 20),
             Container(
                 child: Text(
               "​A variety of functions and features",
               style: TextStyle(
-                  color: Color.fromARGB(255, 77, 13, 13), fontSize: 30),
+                  color: Color.fromARGB(255, 226, 210, 210), fontSize: 30),
             )),
             SizedBox(height: 5),
             Container(
                 child: Text(
               "\n 1. Grant access to multiple users through an Entitlements Engine. \n 2. Electronic transfer of funds both domestically and internationally. \n 3. Manage your accounts. \n 4. Create recurring payments. \n 5. View transaction history. ",
-              style: TextStyle(color: Colors.black, fontSize: 15),
+              style: TextStyle(color: Color.fromARGB(255, 226, 210, 210), fontSize: 15),
             )),
             Container(
                 padding: EdgeInsets.only(top: 10),
                 child: Text(
                   "ABC @ 2022 All rights reserved",
-                  style: TextStyle(color: Colors.black, fontSize: 10),
+                  style: TextStyle(color: Color.fromARGB(255, 226, 210, 210), fontSize: 10),
                 )),
             Image.asset('lib/assets/Images/digital.png'),
           ],

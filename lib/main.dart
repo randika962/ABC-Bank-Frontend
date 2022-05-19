@@ -216,7 +216,8 @@ class LoginPageState extends State<LoginPage> {
             child: Container(
               // color: Color.fromARGB(255, 111, 189, 241),
               //color: Color.fromARGB(255, 105, 133, 226),
-              color: Color.fromARGB(255, 163, 176, 219),
+              // color: Color.fromARGB(255, 163, 176, 219),
+              color: Color.fromARGB(255, 5, 20, 66),
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -227,7 +228,7 @@ class LoginPageState extends State<LoginPage> {
                         child: Text(
                           "Please Sign In With Your Details",
                           style: TextStyle(
-                            color: Color.fromARGB(255, 83, 70, 70),
+                            color: Color.fromARGB(255, 226, 210, 210),
                             fontSize: 30,
                           ),
                         )),
@@ -243,11 +244,13 @@ class LoginPageState extends State<LoginPage> {
                         },
                         style: TextStyle(color: Color.fromARGB(255, 6, 34, 56)),
                         decoration: InputDecoration(
-                          labelText: "UserMail",
-                          labelStyle: TextStyle(color: Colors.black),
+                          // labelText: "UserMail",
+                          // labelStyle: TextStyle(color: Colors.black),
+                          hintText: "UserMail",
+                          hintStyle: TextStyle(color: Colors.black),
                           counterText: 'Please Enter Valid Email Address !',
                           counterStyle: TextStyle(
-                              color: Color.fromARGB(255, 207, 11, 11),
+                              color: Color.fromARGB(255, 251, 255, 12),
                               fontSize: 12),
                           suffixIcon: const Icon(Icons.email_outlined,
                               color: Colors.grey),
@@ -277,12 +280,14 @@ class LoginPageState extends State<LoginPage> {
                         style: TextStyle(color: Color.fromARGB(255, 6, 34, 56)),
                         obscureText: true,
                         decoration: InputDecoration(
-                          labelText: "Password",
-                          labelStyle: TextStyle(color: Colors.black),
+                          // labelText: "Password",
+                          // labelStyle: TextStyle(color: Colors.black),
+                          hintText: "Password",
+                          hintStyle: TextStyle(color: Colors.black),
                           counterText:
                               'You Forgot password? Please Contact Our CustomerCare',
                           counterStyle: TextStyle(
-                              color: Color.fromARGB(255, 31, 11, 4),
+                              color: Color.fromARGB(255, 251, 255, 12),
                               fontSize: 12),
                           // suffix: InkWell(
                           //   onTap: _togglePasswordView,
@@ -358,6 +363,10 @@ class LoginPageState extends State<LoginPage> {
                       width: 500,
                       padding: EdgeInsets.only(top: 30),
                       child: ElevatedButton(
+                         style: ElevatedButton.styleFrom(
+                                primary: Colors.deepPurple, // background
+                                onPrimary: Colors.white, // foreground
+                              ),
                           onPressed: () {
                             print("User Name : " + _email);
                             print("Password : " + _password);
@@ -450,7 +459,7 @@ class LoginPageState extends State<LoginPage> {
                           child: Text("Create a new account",
                               style: TextStyle(
                                 decoration: TextDecoration.underline,
-                                color: Color.fromARGB(240, 4, 35, 61),
+                                color: Color.fromARGB(255, 226, 210, 210),
                                 fontSize: 15,
                               ))),
                     )

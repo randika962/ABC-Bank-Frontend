@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:signapp/employeedashboard.dart';
+import 'package:signapp/model/singleuser_response.dart';
 import 'package:signapp/userdashboard.dart';
 import 'package:signapp/main.dart';
+import 'package:http/http.dart' as http;
 
 // class MyApp extends StatelessWidget {
 //   const MyApp({Key? key}) : super(key: key);
@@ -139,7 +141,8 @@ class _ProfileState extends State<Profile> {
         Expanded(
             flex: 9,
             child: Container(
-              color: Color.fromARGB(255, 163, 176, 219),
+              // color: Color.fromARGB(255, 163, 176, 219),
+              color: Color.fromARGB(255, 5, 20, 66),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -148,83 +151,196 @@ class _ProfileState extends State<Profile> {
                   ),
                   const Icon(
                     Icons.account_circle_outlined,
-                    color: Colors.black,
+                    color: Color.fromARGB(255, 226, 210, 210),
                     size: 100,
                   ),
                   const SizedBox(
                     height: 20,
                   ),
-                  Container(
-                    padding: EdgeInsets.only(left: 100),
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            // Icon(Icons.person,size: 50,),
-                            Text(
-                              "User ID - 2",
-                              style: TextStyle(fontSize: 15),
-                            ),
-                            Padding(padding: EdgeInsets.all(30)),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            // Icon(Icons.nam,size: 50,),
-                            Text(
-                              "User First Name - Sulakshana",
-                              style: TextStyle(fontSize: 15),
-                            ),
-                            Padding(padding: EdgeInsets.all(30)),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            // Icon(Icons.person,size: 50,),
-                            Text(
-                              "User Last Name - Gunathilakke",
-                              style: TextStyle(fontSize: 15),
-                            ),
-                            Padding(padding: EdgeInsets.all(30)),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            // Icon(Icons.person,size: 50,),
-                            Text(
-                              "User Address - 567/Alawathugoda",
-                              style: TextStyle(fontSize: 15),
-                            ),
-                            Padding(padding: EdgeInsets.all(30)),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            // Icon(Icons.person,size: 50,),
-                            Text(
-                              "User Mail - sula@gmail.com",
-                              style: TextStyle(fontSize: 15),
-                            ),
-                            Padding(padding: EdgeInsets.all(30)),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            // Icon(Icons.person,size: 50,),
-                            Text(
-                              "User Password - 0987cvbn",
-                              style: TextStyle(fontSize: 15),
-                            ),
-                            Padding(padding: EdgeInsets.all(30)),
-                          ],
-                        ),
-                      ],
+                   Container(
+                      height: 540,
+                      width: MediaQuery.of(context).size.width,
+                      child: new ListVewBuilder(token: widget.token),
+                      // getAllUsers();
                     ),
-                  ),
+                     SizedBox(height: 30),
+                    Container(
+                        padding: EdgeInsets.only(top: 10),
+                        child: Text(
+                          "ABC @ 2022 All rights reserved",
+                          style: TextStyle(color: Color.fromARGB(255, 226, 210, 210), fontSize: 10),
+                        )),
+                  // Container(
+                  //   padding: EdgeInsets.only(left: 100),
+                  //   child: Column(
+                  //     children: [
+                  //       Row(
+                  //         children: [
+                  //           // Icon(Icons.person,size: 50,),
+                  //           Text(
+                  //             "User ID - 2",
+                  //             style: TextStyle(color: Color.fromARGB(255, 226, 210, 210), fontSize: 15),
+                  //           ),
+                  //           Padding(padding: EdgeInsets.all(30)),
+                  //         ],
+                  //       ),
+                  //       Row(
+                  //         children: [
+                  //           // Icon(Icons.nam,size: 50,),
+                  //           Text(
+                  //             "User First Name - Sulakshana",
+                  //             style: TextStyle(color: Color.fromARGB(255, 226, 210, 210), fontSize: 15),
+                  //           ),
+                  //           Padding(padding: EdgeInsets.all(30)),
+                  //         ],
+                  //       ),
+                  //       Row(
+                  //         children: [
+                  //           // Icon(Icons.person,size: 50,),
+                  //           Text(
+                  //             "User Last Name - Gunathilakke",
+                  //             style: TextStyle(color: Color.fromARGB(255, 226, 210, 210), fontSize: 15),
+                  //           ),
+                  //           Padding(padding: EdgeInsets.all(30)),
+                  //         ],
+                  //       ),
+                  //       Row(
+                  //         children: [
+                  //           // Icon(Icons.person,size: 50,),
+                  //           Text(
+                  //             "User Address - 567/Alawathugoda",
+                  //             style: TextStyle(color: Color.fromARGB(255, 226, 210, 210), fontSize: 15),
+                  //           ),
+                  //           Padding(padding: EdgeInsets.all(30)),
+                  //         ],
+                  //       ),
+                  //       Row(
+                  //         children: [
+                  //           // Icon(Icons.person,size: 50,),
+                  //           Text(
+                  //             "User Mail - sula@gmail.com",
+                  //             style: TextStyle(color: Color.fromARGB(255, 226, 210, 210), fontSize: 15),
+                  //           ),
+                  //           Padding(padding: EdgeInsets.all(30)),
+                  //         ],
+                  //       ),
+                  //       Row(
+                  //         children: [
+                  //           // Icon(Icons.person,size: 50,),
+                  //           Text(
+                  //             "User Password - 0987cvbn",
+                  //             style: TextStyle(color: Color.fromARGB(255, 226, 210, 210), fontSize: 15),
+                  //           ),
+                  //           Padding(padding: EdgeInsets.all(30)),
+                  //         ],
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
                 ],
               ),
             )),
       ]),
+      
     );
   }
 }
+
+
+class ListVewBuilder extends StatefulWidget {
+  ListVewBuilder({Key? key, this.token}) : super(key: key);
+  String? token;
+  @override
+  State<ListVewBuilder> createState() => _ListVewBuilderState();
+}
+
+class _ListVewBuilderState extends State<ListVewBuilder> {
+  Singleuserresponse? singleuserresponse;
+  bool _loading = false;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getByIdUsers();
+  }
+
+  void getByIdUsers() async {
+    setState(() {
+      _loading = true;
+    });
+    print("${widget.token}");
+    var response = await http.get(
+      Uri.parse("http://localhost:8080/bankusers/{uId}"),
+      headers: {"Authorization": "Bearer ${widget.token}"},
+    );
+    print("Status Code");
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      singleuserresponse = singleuserresponseFromJson(response.body);
+      setState(() {});
+        print(singleuserresponse!.uId);
+        print(singleuserresponse!.fName);
+        print(singleuserresponse!.lName);
+        print(singleuserresponse!.addres);
+        print(singleuserresponse!.userEmail);
+        print(singleuserresponse!.type);
+        print("----------------------------");
+
+      setState(() {
+        _loading = false;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      // appBar: AppBar(
+      //   title: Text("ListView.builder"),
+      // ),
+      body: Container(
+          child: Column(
+        children: [
+          _loading
+              ? Container(
+                  padding: EdgeInsets.all(200),
+                  child: CircularProgressIndicator(
+                    color: Colors.red,
+                  ))
+              : Container(
+                  width: 1200,
+                  height: 500,
+                  child: ListView.builder(
+                      itemBuilder: (BuildContext context, int index) {
+                        return ListTile(
+                            leading: Icon(Icons.person),
+                            trailing: Container(
+                                child: Column(
+                              children: [
+                                TextButton(
+                                    onPressed: () {},
+                                    child: Icon(Icons.visibility,
+                                        color: Colors.black87))
+                              ],
+                            )),
+                            title: Text(singleuserresponse!.uId
+                                    .toString() +
+                                " " +
+                                singleuserresponse!.fName.toString() +
+                                " " +
+                                singleuserresponse!.lName.toString() +
+                                " " +
+                                singleuserresponse!.addres.toString() +
+                                " " +
+                                singleuserresponse!.userEmail.toString() +
+                                " " +
+                                singleuserresponse!.password.toString()));
+                      }),
+                )
+        ],
+      )),
+
+    );
+  }
+}
+
